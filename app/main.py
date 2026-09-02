@@ -1,0 +1,16 @@
+from fastapi import FastAPI
+
+from app.api.routes import health, qualification
+from app.config import settings
+
+app = FastAPI(
+    title=settings.app_name,
+    version=settings.version,
+    description=(
+        "Decides whether a Jordanian contractor should bid on a government tender. "
+        "The model extracts structured requirements; this service judges them."
+    ),
+)
+
+app.include_router(health.router)
+app.include_router(qualification.router, prefix=settings.api_prefix)

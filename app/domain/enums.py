@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import IntEnum, StrEnum
 
 
-class WorkCategory(str, Enum):
+class WorkCategory(StrEnum):
     """Classification fields used by the Jordanian Government Tenders Department."""
 
     ROADS = "roads"
@@ -11,7 +11,7 @@ class WorkCategory(str, Enum):
     OTHER_WORKS = "other_works"
 
 
-class ClassificationGrade(int, Enum):
+class ClassificationGrade(IntEnum):
     """Contractor classification grades 1 to 6. Grade 1 is the highest."""
 
     GRADE_1 = 1
@@ -26,14 +26,14 @@ class ClassificationGrade(int, Enum):
         return self.value <= required.value
 
 
-class RuleStatus(str, Enum):
+class RuleStatus(StrEnum):
     PASSED = "passed"
     FAILED = "failed"
     UNKNOWN = "unknown"
     NOT_APPLICABLE = "not_applicable"
 
 
-class Verdict(str, Enum):
+class Verdict(StrEnum):
     QUALIFIED = "qualified"
     CONDITIONALLY_QUALIFIED = "conditionally_qualified"
     NOT_QUALIFIED = "not_qualified"

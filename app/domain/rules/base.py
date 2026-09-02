@@ -54,7 +54,9 @@ class QualificationRule(ABC):
             remediable=remediable,
         )
 
-    def passed(self, message: str, required: str | None = None, actual: str | None = None) -> RuleResult:
+    def passed(
+        self, message: str, required: str | None = None, actual: str | None = None
+    ) -> RuleResult:
         return self._result(RuleStatus.PASSED, message, required, actual)
 
     def failed(

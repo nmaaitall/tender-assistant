@@ -28,6 +28,11 @@ _LATIN_THEN_ARABIC = re.compile(r"([0-9A-Za-z])([؀-ۿ])")
 _SPACES = re.compile(r"[ \t ]+")
 _BLANK_LINES = re.compile(r"\n\s*\n+")
 
+_INDIC_DIGITS = str.maketrans("٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹٬٫", "01234567890123456789,.")
+_INDIC_NUMBER = re.compile(r"[٠-٩۰-۹](?:[٠-٩۰-۹٬٫,./]*[٠-٩۰-۹])?")
+_THOUSANDS = re.compile(r"[1-9]\d{0,2}(,\d{3})*(\.\d+)?|0(\.\d+)?")
+_DATE = re.compile(r"(19|20)\d{2}/\d{1,2}/\d{1,2}|\d{1,2}/\d{1,2}/(19|20)\d{2}")
+
 MIN_MEANINGFUL_CHARS = 30
 MAX_GARBLED_RATIO = 0.15
 
@@ -35,6 +40,7 @@ MAX_GARBLED_RATIO = 0.15
 def normalize_arabic(text: str) -> str:
     """Make extracted Arabic text consistent for search and for the model."""
     text = unicodedata.normalize("NFKC", text)  # presentation forms -> base letters
+    text = _INDIC_NUMBER.sub(lambda m: western_number(m.group()), text)
     text = _BIDI_CONTROLS.sub("", text)
     text = text.replace(_TATWEEL, "")
     text = _TASHKEEL.sub("", text)
@@ -43,6 +49,28 @@ def normalize_arabic(text: str) -> str:
     lines = [_SPACES.sub(" ", line).strip() for line in text.splitlines()]
     text = "\n".join(line for line in lines if line and not _is_punctuation_only(line))
     return _BLANK_LINES.sub("\n", text).strip()
+
+
+def western_number(number: str) -> str:
+    """Converts an Arabic-Indic number to ASCII digits.
+
+    Some PDF producers store Arabic-Indic numbers in reverse character order
+    (120,000 is extracted as 000,021). The reversed reading is used only when it is a
+    well-formed amount or date and the original is not.
+    """
+    as_is = number.translate(_INDIC_DIGITS)
+    reversed_ = as_is[::-1]
+    if not _well_formed(as_is) and _well_formed(reversed_):
+        return reversed_
+    return as_is
+
+
+def _well_formed(number: str) -> bool:
+    if "/" in number:
+        return bool(_DATE.fullmatch(number))
+    if "," in number or "." in number:
+        return bool(_THOUSANDS.fullmatch(number))
+    return not (len(number) > 1 and number.startswith("0"))
 
 
 def meaningful_char_count(text: str) -> int:

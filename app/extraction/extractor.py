@@ -16,6 +16,7 @@ from app.extraction.models import Citation, ExtractionResult, RejectedField, Req
 from app.extraction.prompt import FIELDS, SYSTEM_PROMPT, build_user_prompt
 from app.extraction.verify import (
     category_in_quote,
+    date_in_quote,
     grade_in_quote,
     number_in_quote,
     quote_on_page,
@@ -84,6 +85,8 @@ class TenderExtractor:
             isinstance(item["value"], int) and grade_in_quote(item["value"], quote)
         ):
             return "grade does not match the quote"
+        if name == "submission_deadline" and not date_in_quote(str(item["value"]), quote):
+            return "date does not appear in the quote"
         if name == "work_category" and not category_in_quote(str(item["value"]), quote):
             return "work category does not match the quote"
         if name in MONEY_FIELDS:

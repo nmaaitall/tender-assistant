@@ -190,3 +190,33 @@ def test_rejected_requirement_makes_verdict_conditional(document, profile):
     assert requirements.unverified_fields == ["min_registered_capital"]
     report = QualificationEngine().evaluate(profile, requirements, date(2026, 9, 2))
     assert report.verdict is Verdict.CONDITIONALLY_QUALIFIED
+
+
+def test_quote_with_arabic_indic_digits_matches_normalized_page():
+    assert quote_on_page("آخر موعد لتقديم العروض ٢٠٢٦/١٢/٢٤", "آخر موعد لتقديم العروض\n2026/12/24")
+
+
+# Short quotes returned by openai/gpt-oss-120b on the eval set.
+def test_short_real_quotes_match():
+    roads = "شروط االشتراك\n. في مجال الطرق بالفئة الثانية فما فوقاأن يكون المقاول مصنف"
+    assert quote_on_page("بـ الفئة الثانية فما فوق", roads)
+    assert not quote_on_page("بـ الفئة الأولى فما فوق", roads)
+    assert quote_on_page("2026/12/24", "آخر موعد لتقديم العروض\n2026/12/24")
+    assert not quote_on_page("2026/12/25", "آخر موعد لتقديم العروض\n2026/12/24")
+
+
+def test_deadline_must_match_its_quote(document):
+    response = copy.deepcopy(SAMPLE_RESPONSE)
+    response["fields"]["submission_deadline"]["value"] = "2026-10-16"
+    result = _extract(document, response)
+    assert result.requirements.submission_deadline is None
+    assert result.rejected[0].reason == "date does not appear in the quote"
+
+
+def test_date_in_quote():
+    from app.extraction.verify import date_in_quote
+
+    assert date_in_quote("2026-10-15", "من يوم 2026/10/15")
+    assert date_in_quote("2026-10-15", "بتاريخ 15/10/2026")
+    assert date_in_quote("2026-12-24", "٢٠٢٦/١٢/٢٤")
+    assert not date_in_quote("2026-10-15", "من يوم 2026/10/16")

@@ -73,6 +73,33 @@ makes the verdict `conditionally_qualified` rather than a guess.
 The model is reached through the `LLMClient` protocol, so the provider can change
 without touching the extractor. Groq is the current implementation.
 
+## Evals
+
+`evals/` holds 12 synthetic Arabic tenders with known answers. Each case targets a
+specific difficulty: roads, water, electromechanical and other fields; grades 1 to 5;
+amounts from 2,500 to 10,000,000 JOD; requirements that are not stated at all;
+distracting amounts (performance bond, insurance, delay penalty); amounts written in
+words; label: value layouts; Arabic-Indic digits; requirements spread over five pages.
+
+    python -m evals.run
+    python -m evals.run --cases c02_roads c10_arabic_digits
+
+Every field is scored as correct, correctly absent, missed, wrong or spurious. Wrong
+and spurious values are the ones that reach the rule engine, so they are reported
+separately as unsafe values. Each case is also judged against one fixed company
+profile and the verdict is compared with the verdict the correct answers produce.
+
+Results with `openai/gpt-oss-120b` on Groq:
+
+| Run | Field accuracy | Precision | Unsafe values | Verdict agreement |
+|---|---|---|---|---|
+| Baseline | 97.5% | 100% | 0 | 12/12 |
+| After matching fixes | 99.2% | 100% | 0 | 12/12 |
+
+The first run surfaced three real issues, all fixed: Arabic-Indic numbers stored in
+reverse by the PDF producer, quotes of a single date, and words split or glued by the
+text layer around tanween. The PDFs are rebuilt with `python scripts/build_eval_set.py`.
+
 ## Rules
 
 Three rules run against every tender, following the Government Tenders

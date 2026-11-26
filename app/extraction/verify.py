@@ -12,12 +12,14 @@ from __future__ import annotations
 import re
 
 from app.domain.enums import WorkCategory
+from app.ingestion.text_quality import western_number
 
 _NOT_WORD = re.compile(r"[^\w]+")
 _ALEF = str.maketrans({"أ": "ا", "إ": "ا", "آ": "ا", "ة": "ه", "ى": "ي"})
 _PREFIXES = ("وال", "بال", "فال", "كال", "لل", "ال", "و", "ف", "ب", "ك", "ل")
 
 MIN_QUOTE_WORDS = 2
+_LONE_PREFIXES = {"و", "ف", "ب", "ك", "ل"}
 
 GRADE_WORDS = {
     1: ("الاولي", "1"),
@@ -36,8 +38,12 @@ CATEGORY_WORDS = {
 }
 
 
+_INDIC_NUMBER = re.compile(r"[٠-٩۰-۹](?:[٠-٩۰-۹٬٫,./]*[٠-٩۰-۹])?")
+
+
 def compact(text: str) -> str:
-    text = text.translate(_ALEF)
+    text = _INDIC_NUMBER.sub(lambda m: western_number(m.group()), text)
+    text = text.translate(_ALEF).replace("\u0640", "")
     text = text.replace("لا", "ال")
     return _NOT_WORD.sub("", text)
 
@@ -51,26 +57,51 @@ def stem(word: str) -> str:
 
 
 def words(text: str) -> list[str]:
-    return [s for s in (stem(w) for w in text.split()) if s]
+    tokens = [compact(t) for t in text.split()]
+    merged: list[str] = []
+    for token in tokens:
+        if not token:
+            continue
+        # A prefix letter written apart (بـ الفئة) belongs to the next word.
+        if merged and merged[-1] in _LONE_PREFIXES:
+            merged[-1] += token
+        else:
+            merged.append(token)
+    return [stem(t) for t in merged]
 
 
 def quote_on_page(quote: str, page_text: str) -> bool:
     needle, page = words(quote), words(page_text)
-    if len(needle) < MIN_QUOTE_WORDS:
+    if not needle:
+        return False
+    if len(needle) < MIN_QUOTE_WORDS and not _distinctive(needle[0]):
         return False
     return any(_run_matches(needle, page, start) for start in range(len(page)))
 
 
-def _run_matches(needle: list[str], page: list[str], start: int) -> bool:
-    """Match quote words from page[start], letting one quote word span two page words.
+def _distinctive(word: str) -> bool:
+    """A lone number or date with enough digits is specific enough to cite on its own."""
+    return sum(ch.isdigit() for ch in word) >= 4
 
-    PDF text layers sometimes split a word at a line break or a shaping boundary.
+
+def _run_matches(needle: list[str], page: list[str], start: int) -> bool:
+    """Match quote words from page[start].
+
+    PDF text layers sometimes split a word at a line break, or glue the first and
+    last words of a quote to their neighbours, so one quote word may span two page
+    words and the edge words may match the inner part of a page word.
     """
     i = start
-    for word in needle:
-        if i < len(page) and page[i] == word:
+    last = len(needle) - 1
+    for n, word in enumerate(needle):
+        if i >= len(page):
+            return False
+        token = page[i]
+        glued_first = n == 0 and last > 0 and token.endswith(word)
+        glued_last = n == last and last > 0 and token.startswith(word)
+        if token == word or glued_first or glued_last:
             i += 1
-        elif i + 1 < len(page) and stem(page[i] + page[i + 1]) == word:
+        elif i + 1 < len(page) and stem(token + page[i + 1]) == word:
             i += 2
         else:
             return False
@@ -86,6 +117,23 @@ def number_in_quote(value: float | int, quote: str) -> bool:
 def _loose(word: str) -> str:
     # Drops alef and lam so attached articles and the lam-alef ligature stop mattering.
     return compact(word).replace("ا", "").replace("ل", "")
+
+
+def date_in_quote(value: str, quote: str) -> bool:
+    """The ISO date value must be written in the quote, in any usual Arabic order."""
+    try:
+        year, month, day = (int(part) for part in str(value).split("-"))
+    except ValueError:
+        return False
+    numbers = [int(n) for n in re.findall(r"\d+", compact_digits(quote))]
+    for a, b, c in zip(numbers, numbers[1:], numbers[2:], strict=False):
+        if (a, b, c) in ((year, month, day), (day, month, year)):
+            return True
+    return False
+
+
+def compact_digits(text: str) -> str:
+    return _INDIC_NUMBER.sub(lambda m: western_number(m.group()), text)
 
 
 def grade_in_quote(grade: int, quote: str) -> bool:

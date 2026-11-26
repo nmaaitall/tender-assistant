@@ -29,7 +29,10 @@ class QualificationEngine:
         as_of: date | None = None,
     ) -> QualificationReport:
         evaluated_at = as_of or date.today()
-        results = [rule.evaluate(profile, tender, evaluated_at) for rule in self.rules]
+        results = [
+            self._guard(rule, rule.evaluate(profile, tender, evaluated_at), tender)
+            for rule in self.rules
+        ]
         verdict = self._verdict(results)
         gaps = self._gaps(results)
         return QualificationReport(
@@ -40,6 +43,20 @@ class QualificationEngine:
             evaluated_at=evaluated_at,
             results=results,
             gaps=gaps,
+        )
+
+    def _guard(
+        self, rule: QualificationRule, result: RuleResult, tender: TenderRequirements
+    ) -> RuleResult:
+        """A pass cannot rest on a requirement that was dropped as unverifiable."""
+        unverified = sorted(set(rule.fields) & set(tender.unverified_fields))
+        if not unverified or result.status not in (RuleStatus.PASSED, RuleStatus.NOT_APPLICABLE):
+            return result
+        return RuleResult(
+            rule_id=result.rule_id,
+            status=RuleStatus.UNKNOWN,
+            message="Could not verify in the tender document: " + ", ".join(unverified) + ".",
+            actual="not verified in tender",
         )
 
     def _verdict(self, results: list[RuleResult]) -> Verdict:
@@ -61,6 +78,7 @@ class QualificationEngine:
             first = next(r for r in results if r.status is RuleStatus.FAILED)
             return first.message
         if verdict is Verdict.CONDITIONALLY_QUALIFIED:
-            missing = [r.rule_id for r in results if r.status is RuleStatus.UNKNOWN]
-            return "Cannot confirm qualification until the profile provides: " + ", ".join(missing)
+            return "Cannot confirm qualification yet. " + " ".join(
+                r.message for r in results if r.status is RuleStatus.UNKNOWN
+            )
         return "Company meets every stated requirement of this tender."

@@ -10,6 +10,7 @@ from app.domain.tender import TenderRequirements
 
 class CapitalRule(QualificationRule):
     rule_id = "registered_capital"
+    fields = ("min_registered_capital",)
 
     def evaluate(
         self,

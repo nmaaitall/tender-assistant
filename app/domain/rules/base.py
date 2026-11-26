@@ -27,6 +27,8 @@ class QualificationRule(ABC):
     """A single deterministic check of one profile against one tender."""
 
     rule_id: str = "rule"
+    # Tender fields the rule reads. Used to catch requirements that could not be verified.
+    fields: tuple[str, ...] = ()
 
     @abstractmethod
     def evaluate(

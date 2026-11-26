@@ -22,3 +22,7 @@ class TenderRequirements(BaseModel):
     min_years_experience: int | None = Field(default=None, ge=0)
     submission_deadline: date | None = None
     bid_guarantee_amount: Decimal | None = Field(default=None, ge=0)
+    unverified_fields: list[str] = Field(
+        default_factory=list,
+        description="Requirements the document states but the extractor could not verify.",
+    )

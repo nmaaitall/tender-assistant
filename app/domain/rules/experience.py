@@ -12,6 +12,13 @@ class ExperienceRule(QualificationRule):
     """Checks years of activity and the count of comparable past projects."""
 
     rule_id = "experience"
+    fields = (
+        "work_category",
+        "min_years_experience",
+        "min_similar_projects",
+        "min_similar_project_value",
+        "experience_lookback_years",
+    )
 
     def evaluate(
         self,

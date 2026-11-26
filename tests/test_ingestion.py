@@ -106,3 +106,25 @@ def test_normalize_separates_numbers_from_words():
 
 def test_normalize_drops_punctuation_only_lines():
     assert normalize_arabic("سطر أول\n :\n.\nسطر ثان") == "سطر أول\nسطر ثان"
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        ("١٢٠,٠٠٠", "120,000"),
+        ("٠٠٠,٠٢١", "120,000"),
+        ("٠٠٥,٧", "7,500"),
+        ("٢٠٢٦/١٢/٢٤", "2026/12/24"),
+        ("٤٢/٢١/٦٢٠٢", "2026/12/24"),
+        ("٢٥٠٫٥", "250.5"),
+        ("١٥", "15"),
+    ],
+)
+def test_arabic_indic_numbers(raw, expected):
+    from app.ingestion.text_quality import western_number
+
+    assert western_number(raw) == expected
+
+
+def test_reversed_arabic_indic_amount_in_a_sentence():
+    assert normalize_arabic("ألا يقل عن ٠٠٠,٠٢١ دينار") == "ألا يقل عن 120,000 دينار"

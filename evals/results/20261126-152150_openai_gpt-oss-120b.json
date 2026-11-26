@@ -1,0 +1,296 @@
+{
+  "model": "openai/gpt-oss-120b",
+  "summary": {
+    "cases": 12,
+    "field_accuracy": 0.9917,
+    "recall": 0.9912,
+    "precision": 1.0,
+    "unsafe_values": 0,
+    "verdict_agreement": 1.0,
+    "outcomes": {
+      "correct": 112,
+      "missed": 1,
+      "absent": 7
+    },
+    "per_field": {
+      "reference": {
+        "correct": 12
+      },
+      "work_category": {
+        "correct": 11,
+        "missed": 1
+      },
+      "required_classification_grade": {
+        "correct": 12
+      },
+      "min_registered_capital": {
+        "correct": 11,
+        "absent": 1
+      },
+      "min_similar_projects": {
+        "correct": 10,
+        "absent": 2
+      },
+      "min_similar_project_value": {
+        "correct": 10,
+        "absent": 2
+      },
+      "experience_lookback_years": {
+        "correct": 10,
+        "absent": 2
+      },
+      "min_years_experience": {
+        "correct": 12
+      },
+      "submission_deadline": {
+        "correct": 12
+      },
+      "bid_guarantee_amount": {
+        "correct": 12
+      }
+    }
+  },
+  "failures": {},
+  "cases": [
+    {
+      "id": "c01_baseline",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "correct",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "qualified",
+      "actual_verdict": "qualified",
+      "rejected": [],
+      "details": {}
+    },
+    {
+      "id": "c02_roads",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "correct",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "not_qualified",
+      "actual_verdict": "not_qualified",
+      "rejected": [],
+      "details": {}
+    },
+    {
+      "id": "c03_water_small",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "correct",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "not_qualified",
+      "actual_verdict": "not_qualified",
+      "rejected": [],
+      "details": {}
+    },
+    {
+      "id": "c04_electromech_large",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "missed",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "correct",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "not_qualified",
+      "actual_verdict": "not_qualified",
+      "rejected": [
+        {
+          "field": "work_category",
+          "reason": "quote not found on the cited page",
+          "page": 2,
+          "quote": "مجال االأعمال الكهروميكانيكية"
+        }
+      ],
+      "details": {
+        "work_category": {
+          "expected": "electromechanical",
+          "actual": null
+        }
+      }
+    },
+    {
+      "id": "c05_missing_fields",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "absent",
+        "min_similar_projects": "absent",
+        "min_similar_project_value": "absent",
+        "experience_lookback_years": "absent",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "qualified",
+      "actual_verdict": "qualified",
+      "rejected": [],
+      "details": {}
+    },
+    {
+      "id": "c06_distractors",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "correct",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "qualified",
+      "actual_verdict": "qualified",
+      "rejected": [],
+      "details": {}
+    },
+    {
+      "id": "c07_list_format",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "correct",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "not_qualified",
+      "actual_verdict": "not_qualified",
+      "rejected": [],
+      "details": {}
+    },
+    {
+      "id": "c08_amounts_in_words",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "correct",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "not_qualified",
+      "actual_verdict": "not_qualified",
+      "rejected": [],
+      "details": {}
+    },
+    {
+      "id": "c09_other_works",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "absent",
+        "min_similar_project_value": "absent",
+        "experience_lookback_years": "absent",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "not_qualified",
+      "actual_verdict": "not_qualified",
+      "rejected": [],
+      "details": {}
+    },
+    {
+      "id": "c10_arabic_digits",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "correct",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "qualified",
+      "actual_verdict": "qualified",
+      "rejected": [],
+      "details": {}
+    },
+    {
+      "id": "c11_spread_over_pages",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "correct",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "qualified",
+      "actual_verdict": "qualified",
+      "rejected": [],
+      "details": {}
+    },
+    {
+      "id": "c12_million",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "correct",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "not_qualified",
+      "actual_verdict": "not_qualified",
+      "rejected": [],
+      "details": {}
+    }
+  ]
+}

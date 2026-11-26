@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from app.domain.enums import ClassificationGrade, Verdict
+from app.domain.enums import ClassificationGrade, RuleStatus, Verdict
 from app.domain.rules import QualificationEngine
 
 
@@ -52,3 +52,21 @@ def test_capital_gap_message(profile, tender, today):
     profile.registered_capital = Decimal("60000")
     report = QualificationEngine().evaluate(profile, tender, today)
     assert "100,000 JOD" in report.headline
+
+
+def test_unverified_requirement_blocks_a_pass(profile, tender, today):
+    tender.min_registered_capital = None
+    tender.unverified_fields = ["min_registered_capital"]
+    report = QualificationEngine().evaluate(profile, tender, today)
+
+    capital = next(r for r in report.results if r.rule_id == "registered_capital")
+    assert capital.status is RuleStatus.UNKNOWN
+    assert report.verdict is Verdict.CONDITIONALLY_QUALIFIED
+    assert "min_registered_capital" in report.headline
+
+
+def test_unverified_field_does_not_hide_a_failure(profile, tender, today):
+    profile.registered_capital = Decimal("50000")
+    tender.unverified_fields = ["work_category"]
+    report = QualificationEngine().evaluate(profile, tender, today)
+    assert report.verdict is Verdict.NOT_QUALIFIED

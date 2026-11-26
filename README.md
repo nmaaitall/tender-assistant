@@ -12,8 +12,8 @@ rules in `app/domain/rules`, so every verdict is explainable and reproducible.
 
 ## Current state
 
-Domain layer, rule engine, PDF ingestion and a REST API. No database, no background
-jobs, no OCR and no model call yet.
+Domain layer, rule engine, PDF ingestion, LLM extraction and a REST API. No database,
+no background jobs and no OCR yet.
 
     app/
       config.py            application settings
@@ -26,6 +26,11 @@ jobs, no OCR and no model call yet.
         pdf_reader.py      page-by-page text extraction, OCR routing
         text_quality.py    Arabic normalization and garbled-text detection
         models.py          extracted document and page models
+      extraction/
+        llm.py             model client protocol and the Groq client
+        prompt.py          extraction prompt
+        extractor.py       model output to TenderRequirements, with checks
+        verify.py          quote matching against the page text
       domain/
         company.py         company profile model
         tender.py          extracted tender requirements model
@@ -51,6 +56,23 @@ OCR does not have this problem.
 The test fixture `tests/fixtures/sample_tender.pdf` is a synthetic Arabic tender
 built from `scripts/sample_tender.html` with `make sample-tender` (needs LibreOffice).
 
+## Extraction
+
+The model returns every requirement with the page it was found on and a quote from
+that page. Before a value is used:
+
+- the quote must be found on the cited page (spacing, punctuation, alef forms and the
+  reversed lam-alef ligature are ignored)
+- money amounts must also appear in the quote
+- the value must fit the field type
+
+Anything that fails is dropped and listed under `rejected`, so the rule engine only
+ever sees values that can be traced back to the document. A dropped requirement
+makes the verdict `conditionally_qualified` rather than a guess.
+
+The model is reached through the `LLMClient` protocol, so the provider can change
+without touching the extractor. Groq is the current implementation.
+
 ## Rules
 
 Three rules run against every tender, following the Government Tenders
@@ -72,6 +94,11 @@ data) or `not_applicable` (the tender does not state the requirement).
   is missing data
 - `not_qualified` - at least one requirement fails
 
+## Configuration
+
+Copy `.env.example` to `.env` and set `GROQ_API_KEY`. Without it the extraction
+endpoints return 503 and everything else works.
+
 ## Run locally
 
     python3.12 -m venv .venv
@@ -90,4 +117,6 @@ Interactive documentation: http://localhost:8000/docs
 
     GET  /health
     POST /api/v1/documents/inspect
+    POST /api/v1/tenders/extract
+    POST /api/v1/tenders/evaluate
     POST /api/v1/qualification/evaluate

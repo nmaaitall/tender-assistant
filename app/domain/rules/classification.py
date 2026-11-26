@@ -10,6 +10,7 @@ from app.domain.tender import TenderRequirements
 
 class ClassificationRule(QualificationRule):
     rule_id = "classification"
+    fields = ("work_category", "required_classification_grade")
 
     def evaluate(
         self,

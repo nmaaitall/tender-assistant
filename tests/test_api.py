@@ -77,3 +77,75 @@ def test_inspect_document_rejects_empty_file():
         files={"file": ("empty.pdf", b"", "application/pdf")},
     )
     assert response.status_code == 400
+
+
+def _fake_extractor():
+    from app.extraction import TenderExtractor
+    from tests.fake_llm import SAMPLE_RESPONSE, FakeLLM
+
+    return TenderExtractor(FakeLLM(SAMPLE_RESPONSE), model_name="fake")
+
+
+def _sample_pdf():
+    return (Path(__file__).parent / "fixtures" / "sample_tender.pdf").read_bytes()
+
+
+def test_extract_without_api_key_returns_503(monkeypatch):
+    from app.config import settings
+
+    monkeypatch.setattr(settings, "groq_api_key", None)
+    response = client.post(
+        "/api/v1/tenders/extract",
+        files={"file": ("sample_tender.pdf", _sample_pdf(), "application/pdf")},
+    )
+    assert response.status_code == 503
+
+
+def test_extract_returns_requirements_with_citations():
+    from app.api.dependencies import get_extractor
+
+    app.dependency_overrides[get_extractor] = _fake_extractor
+    try:
+        response = client.post(
+            "/api/v1/tenders/extract",
+            files={"file": ("sample_tender.pdf", _sample_pdf(), "application/pdf")},
+        )
+    finally:
+        app.dependency_overrides.clear()
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["requirements"]["reference"] == "ZM-2026-014"
+    assert body["citations"]["min_registered_capital"]["page"] == 2
+
+
+def test_evaluate_tender_end_to_end(profile, today):
+    from app.api.dependencies import get_extractor
+
+    app.dependency_overrides[get_extractor] = _fake_extractor
+    try:
+        response = client.post(
+            "/api/v1/tenders/evaluate",
+            files={"file": ("sample_tender.pdf", _sample_pdf(), "application/pdf")},
+            data={"profile": profile.model_dump_json(), "as_of": today.isoformat()},
+        )
+    finally:
+        app.dependency_overrides.clear()
+
+    assert response.status_code == 200
+    assert response.json()["report"]["verdict"] == "qualified"
+
+
+def test_evaluate_tender_rejects_bad_profile():
+    from app.api.dependencies import get_extractor
+
+    app.dependency_overrides[get_extractor] = _fake_extractor
+    try:
+        response = client.post(
+            "/api/v1/tenders/evaluate",
+            files={"file": ("sample_tender.pdf", _sample_pdf(), "application/pdf")},
+            data={"profile": '{"name": "X", "registered_capital": -5}'},
+        )
+    finally:
+        app.dependency_overrides.clear()
+    assert response.status_code == 422

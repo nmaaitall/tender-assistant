@@ -12,8 +12,8 @@ rules in `app/domain/rules`, so every verdict is explainable and reproducible.
 
 ## Current state
 
-Domain layer, rule engine and a REST API. No database, no background jobs and no
-model call yet.
+Domain layer, rule engine, PDF ingestion and a REST API. No database, no background
+jobs, no OCR and no model call yet.
 
     app/
       config.py            application settings
@@ -22,11 +22,34 @@ model call yet.
         schemas.py         request and response models
         dependencies.py    engine injection
         routes/            health and qualification endpoints
+      ingestion/
+        pdf_reader.py      page-by-page text extraction, OCR routing
+        text_quality.py    Arabic normalization and garbled-text detection
+        models.py          extracted document and page models
       domain/
         company.py         company profile model
         tender.py          extracted tender requirements model
         results.py         rule results and qualification report
         rules/             classification, experience and capital rules
+
+## Ingestion
+
+Every page of an uploaded PDF is read separately and given a source:
+
+- `text_layer` - the page has a usable text layer; the text is normalized
+  (presentation forms, tashkeel, tatweel, bidi controls, spacing around numbers)
+- `needs_ocr` - the page has no text (a scan) or its text layer is garbled
+  (a broken font map that yields characters from unrelated scripts)
+
+The document is then `digital`, `scanned` or `mixed`. Page numbers are kept so
+answers can cite the page they come from.
+
+Known limitation: Word and LibreOffice exports often store the lam-alef ligature
+in reverse, so `الأولى` reads as `األولى`. The text stays usable for the model;
+OCR does not have this problem.
+
+The test fixture `tests/fixtures/sample_tender.pdf` is a synthetic Arabic tender
+built from `scripts/sample_tender.html` with `make sample-tender` (needs LibreOffice).
 
 ## Rules
 
@@ -66,4 +89,5 @@ Interactive documentation: http://localhost:8000/docs
 ## API
 
     GET  /health
+    POST /api/v1/documents/inspect
     POST /api/v1/qualification/evaluate

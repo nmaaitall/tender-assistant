@@ -1,4 +1,4 @@
-.PHONY: install test lint format run up down
+.PHONY: install test lint format run up down sample-tender
 
 install:
 	pip install -r requirements-dev.txt
@@ -7,10 +7,10 @@ test:
 	pytest -q
 
 lint:
-	ruff check app tests
+	ruff check app tests scripts
 
 format:
-	ruff format app tests
+	ruff format app tests scripts
 
 run:
 	uvicorn app.main:app --reload
@@ -20,3 +20,6 @@ up:
 
 down:
 	docker compose down
+
+sample-tender:
+	python scripts/build_sample_tender.py

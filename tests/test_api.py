@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from fastapi.testclient import TestClient
 
 from app.main import app
@@ -46,3 +48,32 @@ def test_openapi_schema_is_served():
     response = client.get("/openapi.json")
     assert response.status_code == 200
     assert "/api/v1/qualification/evaluate" in response.json()["paths"]
+
+
+def test_inspect_document_returns_pages():
+    pdf = (Path(__file__).parent / "fixtures" / "sample_tender.pdf").read_bytes()
+    response = client.post(
+        "/api/v1/documents/inspect",
+        files={"file": ("sample_tender.pdf", pdf, "application/pdf")},
+    )
+    assert response.status_code == 200
+    body = response.json()
+    assert body["page_count"] == 4
+    assert body["kind"] == "digital"
+    assert body["ocr_pages"] == []
+
+
+def test_inspect_document_rejects_non_pdf():
+    response = client.post(
+        "/api/v1/documents/inspect",
+        files={"file": ("notes.txt", b"hello", "text/plain")},
+    )
+    assert response.status_code == 415
+
+
+def test_inspect_document_rejects_empty_file():
+    response = client.post(
+        "/api/v1/documents/inspect",
+        files={"file": ("empty.pdf", b"", "application/pdf")},
+    )
+    assert response.status_code == 400

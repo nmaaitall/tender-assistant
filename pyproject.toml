@@ -1,6 +1,13 @@
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+filterwarnings = [
+    # PyMuPDF's SWIG bindings, not our code.
+    "ignore:builtin type .* has no __module__ attribute:DeprecationWarning",
+    # Starlette's TestClient notice about httpx.
+    "ignore::DeprecationWarning:fastapi.testclient",
+    "ignore:Using `httpx` with `starlette.testclient`",
+]
 
 [tool.ruff]
 line-length = 100

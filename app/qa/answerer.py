@@ -24,7 +24,8 @@ from app.retrieval import ChunkIndex, Hit
 
 PASSAGES = 5
 MIN_CHECKED_NUMBER = 100
-_NUMBER = re.compile(r"\d[\d,]*")
+# Thousands may be grouped with commas or spaces: 20,000 or 100 000.
+_NUMBER = re.compile(r"\d{1,3}(?:[, ]\d{3})+(?!\d)|\d+")
 
 
 class TenderQA:
@@ -79,7 +80,7 @@ def _valid_citations(raw: object, hits: list[Hit]) -> list[Citation]:
 def numbers_in(text: str) -> set[str]:
     # Arabic-Indic digits become Western ones; spaces between words are kept.
     western = " ".join(compact_digits(word) for word in text.split())
-    return {n.replace(",", "") for n in _NUMBER.findall(western)}
+    return {re.sub(r"[, ]", "", n) for n in _NUMBER.findall(western)}
 
 
 def _numbers_not_cited(answer: str, citations: list[Citation]) -> list[str]:

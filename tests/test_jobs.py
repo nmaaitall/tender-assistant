@@ -7,7 +7,8 @@ from fastapi.testclient import TestClient
 from qdrant_client import QdrantClient
 
 from app import db
-from app.api.dependencies import get_qa
+from app.agent import TenderAgent
+from app.api.dependencies import get_agent, get_qa
 from app.extraction import ExtractionNotConfigured, LLMError, TenderExtractor
 from app.jobs import tasks
 from app.jobs.models import Job, JobStatus
@@ -209,3 +210,44 @@ def test_question_before_the_index_is_ready(fake_model, fake_qa, monkeypatch):
 
     response = client.post(f"/api/v1/jobs/{job['id']}/questions", json={"question": "سؤال؟"})
     assert response.status_code == 409
+
+
+class OneToolChat:
+    """Asks for the qualification report once, then answers."""
+
+    def __init__(self):
+        self.replies = [
+            {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                    {
+                        "id": "c1",
+                        "type": "function",
+                        "function": {"name": "check_qualification", "arguments": "{}"},
+                    }
+                ],
+            },
+            {"role": "assistant", "content": "الشركة مؤهلة لهذا العطاء."},
+        ]
+
+    def chat(self, messages, tools):
+        return self.replies.pop(0)
+
+
+def test_agent_answers_with_the_engine_report(fake_model, profile):
+    job = client.get(_submit(profile).json()["status_url"]).json()
+    app.dependency_overrides[get_agent] = lambda: TenderAgent(
+        OneToolChat(), TenderQA(FakeLLM(GUARANTEE_ANSWER), INDEX)
+    )
+    try:
+        response = client.post(
+            f"/api/v1/jobs/{job['id']}/agent", json={"question": "هل نحن مؤهلون؟"}
+        )
+    finally:
+        app.dependency_overrides.pop(get_agent, None)
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["report"]["verdict"] == "qualified"
+    assert body["steps"][0]["tool"] == "check_qualification"

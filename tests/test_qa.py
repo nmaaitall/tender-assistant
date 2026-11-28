@@ -105,3 +105,10 @@ def test_score_answer():
     assert score_answer(refused, 20000, "bid_guarantee_amount", {2}) == "missed"
     assert score_answer(answered, None, None, set()) == "invented"
     assert score_answer(refused, None, "bid_guarantee_amount", set()) == "refused"
+
+
+def test_numbers_in_reads_grouped_thousands():
+    from app.qa.answerer import numbers_in
+
+    assert numbers_in("100 000 دينار و 20,000 دينار و ٢٠٢٦/١٠/١٥") >= {"100000", "20000", "2026"}
+    assert "100" not in numbers_in("100 000 دينار")

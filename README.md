@@ -48,6 +48,9 @@ REST API.
       qa/
         answerer.py        answers from retrieved passages, with checked citations
         prompt.py          question answering prompt
+      agent/
+        graph.py           LangGraph tool loop with call limit and number check
+        tools.py           tender tools: questions, requirements, qualification
       domain/
         company.py         company profile model
         tender.py          extracted tender requirements model
@@ -255,6 +258,24 @@ The worker stores the tender's passages in Qdrant while it processes the job. If
 that fails, the job still succeeds with `questions_ready: false` and the endpoint
 answers 409.
 
+## Agent
+
+Some questions need several steps: "are we qualified, and if not, what is missing and
+what bid bond do we need?" `POST /api/v1/jobs/{id}/agent` runs a LangGraph agent
+that decides which tools to call and in what order:
+
+    agent --(tool calls)--> tools --> agent --(no tool calls)--> answer
+
+- `ask_tender` - one question to the checked question answering above
+- `get_requirements` - the extracted requirements and those not verified
+- `check_qualification` - the rule engine's verdict and gaps
+
+The model never judges qualification itself: the verdict in the response is the
+engine's report, returned as data next to the model's text. An answer the citation
+check rejected is passed to the model as not found, so it cannot be repeated. Amounts
+in the final answer that no tool returned are listed in `unsupported_numbers`, and
+the loop stops after six model calls. Every tool call is returned in `steps`.
+
 ## Background jobs
 
 OCR takes about half a second per page, so a long tender is too slow for one HTTP
@@ -335,4 +356,5 @@ Interactive documentation: http://localhost:8000/docs
     POST /api/v1/jobs
     GET  /api/v1/jobs/{id}
     POST /api/v1/jobs/{id}/questions
+    POST /api/v1/jobs/{id}/agent
     POST /api/v1/qualification/evaluate

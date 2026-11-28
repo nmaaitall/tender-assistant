@@ -17,6 +17,14 @@ class LLMClient(Protocol):
     def complete_json(self, system: str, user: str) -> dict[str, Any]: ...
 
 
+class ChatClient(Protocol):
+    """A model that can call tools. Returns the assistant message."""
+
+    def chat(
+        self, messages: list[dict[str, Any]], tools: list[dict[str, Any]]
+    ) -> dict[str, Any]: ...
+
+
 class GroqClient:
     """Groq exposes an OpenAI-compatible chat completions API."""
 
@@ -53,6 +61,16 @@ class GroqClient:
         if not isinstance(data, dict):
             raise LLMError("Model did not return a JSON object")
         return data
+
+    def chat(self, messages: list[dict[str, Any]], tools: list[dict[str, Any]]) -> dict[str, Any]:
+        payload = {"model": self.model, "temperature": 0, "messages": messages, "tools": tools}
+        try:
+            response = self._post(payload)
+            if response.is_error:
+                raise LLMError(f"Model call failed: {response.status_code} {_reason(response)}")
+            return response.json()["choices"][0]["message"]
+        except (httpx.HTTPError, KeyError, IndexError, ValueError) as exc:
+            raise LLMError(f"Model call failed: {exc}") from exc
 
     def _post(self, payload: dict[str, Any]) -> httpx.Response:
         """Retries rate limits and server errors, honouring Retry-After when present."""

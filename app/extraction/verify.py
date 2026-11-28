@@ -114,10 +114,33 @@ def number_in_quote(value: float | int, quote: str) -> bool:
     return number in digits
 
 
-def _loose(word: str) -> str:
-    # Drops one attached prefix (و ب ال ...), then alef and lam, so articles and the
-    # lam-alef ligature stop mattering.
-    return stem(word).replace("ا", "").replace("ل", "")
+def _plain(word: str) -> str:
+    # Drops alef and lam so attached articles and the lam-alef ligature stop mattering.
+    return compact(word).replace("ا", "").replace("ل", "")
+
+
+def _forms(word: str) -> set[str]:
+    # A quote word with and without one attached prefix; keywords are never stemmed,
+    # since a word like كهروميكانيك starts with a letter that looks like a prefix.
+    return {_plain(word), _plain(stem(word))}
+
+
+# Words that show a requirement is stated. A requirement still missing after both readings
+# while its words appear in the document is marked unverified instead of being ignored.
+FIELD_MARKERS = {
+    "work_category": ("مجال",),
+    "required_classification_grade": ("الفئة",),
+    "min_registered_capital": ("رأس المال",),
+    "min_years_experience": ("خبرة",),
+    "min_similar_projects": ("مماثل",),
+    "submission_deadline": ("آخر موعد", "تاريخ الإغلاق", "موعد أقصاه"),
+    "bid_guarantee_amount": ("كفالة دخول",),
+}
+
+
+def mentioned(field: str, text: str) -> bool:
+    page = compact(text)
+    return any(compact(marker) in page for marker in FIELD_MARKERS.get(field, ()))
 
 
 def date_in_quote(value: str, quote: str) -> bool:
@@ -138,8 +161,8 @@ def compact_digits(text: str) -> str:
 
 
 def grade_in_quote(grade: int, quote: str) -> bool:
-    targets = {_loose(w) for w in GRADE_WORDS.get(grade, ())}
-    return any(_loose(w) in targets for w in quote.split())
+    targets = {_plain(w) for w in GRADE_WORDS.get(grade, ())}
+    return any(_forms(w) & targets for w in quote.split())
 
 
 def category_in_quote(category: str, quote: str) -> bool:
@@ -149,5 +172,7 @@ def category_in_quote(category: str, quote: str) -> bool:
         return False
     if keywords is None:
         return True
-    prefixes = [_loose(k) for k in keywords]
-    return any(_loose(w).startswith(p) for w in quote.split() for p in prefixes)
+    prefixes = [_plain(k) for k in keywords]
+    return any(
+        form.startswith(prefix) for w in quote.split() for form in _forms(w) for prefix in prefixes
+    )

@@ -88,3 +88,18 @@ def test_scanned_copy_has_no_text_layer(case):
     document = read_pdf((PDFS / "scanned" / f"{case['id']}.pdf").read_bytes())
     assert document.page_count == len(case["pages"])
     assert document.kind.value == "scanned"
+
+
+def test_verdict_outcomes():
+    case = next(c for c in CASES if c["id"] == "c01_baseline")
+    values = dict(case["expected"], min_registered_capital=None)
+    result = _result(values)
+    result.requirements.unverified_fields = ["min_registered_capital"]
+    score = score_case(case, result)
+    assert score.verdict_outcome == "cautious"
+
+    wrong = score_case(case, _result(dict(case["expected"], required_classification_grade=1)))
+    assert wrong.verdict_outcome == "wrong"
+
+    summary = summarize([score, wrong])
+    assert summary["verdicts"] == {"cautious": 1, "wrong": 1}

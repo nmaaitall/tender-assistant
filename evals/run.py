@@ -32,7 +32,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", default=settings.groq_model)
     parser.add_argument("--cases", nargs="*", help="case ids to run (default: all)")
-    parser.add_argument("--delay", type=float, default=3.0, help="seconds between calls")
+    parser.add_argument("--delay", type=float, default=5.0, help="seconds between calls")
     parser.add_argument("--scanned", action="store_true", help="use the scanned copies")
     args = parser.parse_args()
 
@@ -74,7 +74,7 @@ def main() -> None:
 
 def _case_line(score: CaseScore) -> str:
     marks = "".join(SYMBOLS[score.outcomes[name]] for name in FIELDS)
-    verdict = "ok " if score.verdict_matches else "BAD"
+    verdict = {"match": "ok ", "cautious": "CAU", "wrong": "BAD"}[score.verdict_outcome]
     line = f"{score.case_id:<24} {marks}  verdict {verdict} ({score.actual_verdict})"
     for name, detail in score.details.items():
         line += f"\n{'':<26}{name}: expected {detail['expected']}, got {detail['actual']}"
@@ -96,6 +96,12 @@ def _print_summary(summary: dict, failures: dict[str, str]) -> None:
     print(f"Precision         {summary['precision']:.1%}")
     print(f"Unsafe values     {summary['unsafe_values']}")
     print(f"Verdict agreement {summary['verdict_agreement']:.1%}")
+    verdicts = summary["verdicts"]
+    print(
+        f"Verdicts          {verdicts.get('match', 0)} match, "
+        f"{verdicts.get('cautious', 0)} cautious, {verdicts.get('wrong', 0)} wrong"
+    )
+    print(f"Model calls/case  {summary['model_calls_per_case']:.2f}")
     print()
     header = f"{'field':<32}" + "".join(f"{o:>10}" for o in OUTCOMES)
     print(header)
@@ -118,6 +124,7 @@ def _save(model: str, summary: dict, scores: list[CaseScore], failures: dict) ->
                 "expected_verdict": s.expected_verdict,
                 "actual_verdict": s.actual_verdict,
                 "rejected": s.rejected,
+                "model_calls": s.model_calls,
                 "details": s.details,
             }
             for s in scores

@@ -30,3 +30,4 @@ class ExtractionResult(BaseModel):
     required_documents: list[RequiredDocument] = Field(default_factory=list)
     rejected: list[RejectedField] = Field(default_factory=list)
     model: str
+    model_calls: int = 1

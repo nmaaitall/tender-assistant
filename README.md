@@ -88,6 +88,13 @@ Anything that fails is dropped and listed under `rejected`, so the rule engine o
 ever sees values that can be traced back to the document. A dropped requirement
 makes the verdict `conditionally_qualified` rather than a guess.
 
+Requirements the first reading leaves out or gets rejected are asked for once more,
+with the rejection reason. If a requirement is still missing but its wording is in
+the document (for example خبرة or رأس المال), it is marked unverified, so a rule
+cannot pass on a requirement the model overlooked. The eval report counts model
+calls per tender and splits verdict mismatches into cautious (conditionally
+qualified, a manual check) and wrong.
+
 The model is reached through the `LLMClient` protocol, so the provider can change
 without touching the extractor. Groq is the current implementation.
 
@@ -111,11 +118,13 @@ profile and the verdict is compared with the verdict the correct answers produce
 
 Results with `openai/gpt-oss-120b` on Groq:
 
-| Run | Field accuracy | Precision | Unsafe values | Verdict agreement |
-|---|---|---|---|---|
-| Digital, baseline | 97.5% | 100% | 0 | 12/12 |
-| Digital, after matching fixes | 99.2% | 100% | 0 | 12/12 |
-| Scanned, OCR | 91.7% | 100% | 0 | 11/12 |
+| Run | Field accuracy | Precision | Unsafe values | Verdicts (match / cautious / wrong) | Calls per tender |
+|---|---|---|---|---|---|
+| Digital, baseline | 97.5% | 100% | 0 | 12 / 0 / 0 | 1 |
+| Digital, after matching fixes | 99.2% | 100% | 0 | 12 / 0 / 0 | 1 |
+| Digital, second pass | 100% | 100% | 0 | 12 / 0 / 0 | 1.25 |
+| Scanned, OCR | 91.7% | 100% | 0 | 11 / 1 / 0 | 1 |
+| Scanned, second pass | 94.2% | 100% | 0 | 10 / 2 / 0 | 1.58 |
 
 The scanned copies are image-only PDFs with scan damage (tilt, blur, speckle noise,
 150 dpi, JPEG compression), built with `python scripts/build_scanned_eval_set.py`.
@@ -125,9 +134,14 @@ layer, and keeps 39 of 45 amounts and dates intact.
 On scans, recall drops because damaged numbers are rejected rather than guessed: a
 number cut at a line start (400,000 read as 0) fails the minimum-amount check, and
 Arabic-Indic numbers that OCR mangles are marked unreadable. Every lost value fails
-safe as missed, so precision stays at 100%. The one verdict that differs is
-conditionally qualified instead of qualified, which asks for a manual check rather
-than giving a wrong answer.
+safe as missed, so precision stays at 100%. Verdicts that differ are conditionally
+qualified instead of the expected verdict, which asks for a manual check rather than
+giving a wrong answer.
+
+The second pass recovers some of these values and costs about 0.25 extra calls per
+tender on digital files and 0.6 on scans. It also adds one cautious verdict on scans:
+a missed years-of-experience requirement that used to let the experience rule pass
+is now marked unverified.
 
 Remaining risk: OCR can misread Latin digits into another valid-looking number
 (120,000 read as 10000 in one case). The quote check cannot catch this, because the

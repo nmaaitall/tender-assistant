@@ -2,12 +2,17 @@ from typing import Any
 
 
 class FakeLLM:
-    def __init__(self, response: dict[str, Any]) -> None:
+    """Returns the same response every time, or one response per call from a list."""
+
+    def __init__(self, response: dict[str, Any] | list[dict[str, Any]]) -> None:
+        self.responses = list(response) if isinstance(response, list) else None
         self.response = response
         self.calls: list[tuple[str, str]] = []
 
     def complete_json(self, system: str, user: str) -> dict[str, Any]:
         self.calls.append((system, user))
+        if self.responses is not None:
+            return self.responses.pop(0)
         return self.response
 
 

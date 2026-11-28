@@ -51,6 +51,14 @@ REST API.
       agent/
         graph.py           LangGraph tool loop with call limit and number check
         tools.py           tender tools: questions, requirements, qualification
+      classify/
+        features.py        hashed word and character-trigram ids
+        classifier.py      ONNX Runtime inference
+        model/             exported classifier
+    ml/
+      data.py              synthetic training data with disjoint splits
+      model.py             PyTorch model
+      train.py             training, early stopping, MLflow tracking, ONNX export
       domain/
         company.py         company profile model
         tender.py          extracted tender requirements model
@@ -275,6 +283,44 @@ engine's report, returned as data next to the model's text. An answer the citati
 check rejected is passed to the model as not found, so it cannot be repeated. Amounts
 in the final answer that no tool returned are listed in `unsupported_numbers`, and
 the loop stops after six model calls. Every tool call is returned in `steps`.
+
+## Category classifier
+
+A small PyTorch model gives a second opinion on the work category the LLM extracts.
+When the two disagree and the classifier is confident, the job result says so in
+`category_check.flagged`, so a person checks it.
+
+The model averages hashed embeddings of words and their character trigrams, then a
+linear layer (about two million parameters, trains in under 20 seconds on a CPU).
+Trigrams let unseen words share pieces with known ones (مضخات and مضخة). It is
+exported to ONNX and served with ONNX Runtime, so the API does not install PyTorch.
+
+There is no public labelled set of Jordanian tenders, so training data is
+synthetic: titles and scopes built from templates, with general conditions and a
+secondary trade mixed in (a building with electrical works). Work items, title
+frames and scope details are split into disjoint pools, so the test set holds only
+work items the model never saw.
+
+    pip install -r requirements-ml.txt
+    python -m ml.train                     train and log the run to MLflow
+    python -m ml.train --export            also copy the model into the app
+    mlflow ui --backend-store-uri sqlite:///mlflow.db
+    python -m evals.category               check on the 12 eval tenders
+
+Test set, unseen work items, three data seeds:
+
+| | Accuracy | Macro F1 |
+|---|---|---|
+| Keyword baseline (category words from the citation check) | 40.8 / 53.0 / 53.5% | 0.37 / 0.45 / 0.49 |
+| Classifier | 72.8 / 68.0 / 67.2% | 0.71 / 0.67 / 0.65 |
+
+Confidence is informative: above 0.7 the classifier covers 24% of the test set at
+95.8% accuracy, which is why only confident disagreements are flagged. On the first
+pages of the 12 eval tenders, written differently from the training data, it is
+right on 8; the 4 misses all have confidence below 0.35, so none would be flagged.
+Roads is the weakest class (F1 0.36): the test items use طرق while training items
+use طريق and شوارع, and the broken plural shares almost no trigrams with them. More varied training
+text, for example titles written by a model and checked by hand, is the next step.
 
 ## Background jobs
 

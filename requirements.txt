@@ -13,3 +13,5 @@ celery[redis]>=5.4
 qdrant-client>=1.12
 fastembed>=0.5
 langgraph>=0.2
+onnxruntime>=1.18
+numpy>=1.26

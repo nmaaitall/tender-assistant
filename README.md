@@ -44,6 +44,7 @@ REST API.
         embeddings.py      multilingual sentence embeddings (ONNX, CPU)
         index.py           Qdrant storage and lexical, dense or hybrid search
         rerank.py          cross-encoder reranking
+        factory.py         index built from settings
       qa/
         answerer.py        answers from retrieved passages, with checked citations
         prompt.py          question answering prompt
@@ -246,6 +247,14 @@ answers, and the model cited that clause. The question was rewritten to ask for
 years of experience. The scorer also missed counts written as words with tanween
 (عملاً واحداً); it was fixed and tested.
 
+Once a job has finished, questions go to `POST /api/v1/jobs/{id}/questions`:
+
+    {"question": "ما قيمة كفالة دخول العطاء؟"}
+
+The worker stores the tender's passages in Qdrant while it processes the job. If
+that fails, the job still succeeds with `questions_ready: false` and the endpoint
+answers 409.
+
 ## Background jobs
 
 OCR takes about half a second per page, so a long tender is too slow for one HTTP
@@ -293,7 +302,8 @@ endpoints return 503 and everything else works.
 
     docker compose up --build
 
-Starts the API on port 8000, a worker, Postgres and Redis. The API applies database
+Starts the API on port 8000, a worker, Postgres, Redis and Qdrant. The embedding and
+reranker models (about 1.8 GB) are downloaded on first use into a shared volume. The API applies database
 migrations on start.
 
 ## Run locally
@@ -311,7 +321,8 @@ Locally the database is a SQLite file. Jobs need a worker and Redis:
     celery -A app.worker worker --loglevel=info
 
 Or set `CELERY_EAGER=true` in `.env` to run jobs inside the API process without
-Redis or a worker.
+Redis or a worker. Without `QDRANT_URL`, passages are stored in `./qdrant_data`, a
+folder only one process can open, so local question answering needs eager jobs.
 
 Interactive documentation: http://localhost:8000/docs
 
@@ -323,4 +334,5 @@ Interactive documentation: http://localhost:8000/docs
     POST /api/v1/tenders/evaluate
     POST /api/v1/jobs
     GET  /api/v1/jobs/{id}
+    POST /api/v1/jobs/{id}/questions
     POST /api/v1/qualification/evaluate

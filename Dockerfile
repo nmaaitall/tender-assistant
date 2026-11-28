@@ -16,7 +16,8 @@ COPY alembic.ini ./
 COPY migrations ./migrations
 COPY app ./app
 
-RUN useradd --create-home --uid 1000 appuser
+RUN useradd --create-home --uid 1000 appuser \
+    && mkdir /models && chown appuser /models
 USER appuser
 
 EXPOSE 8000

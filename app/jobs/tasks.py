@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import uuid
 from datetime import UTC, datetime
 from typing import Any
@@ -11,7 +12,11 @@ from app.domain.rules import QualificationEngine
 from app.extraction import ExtractionNotConfigured, LLMError, create_extractor
 from app.ingestion import PdfReadError, read_pdf
 from app.jobs.models import Job, JobStatus
+from app.retrieval import chunk_document
+from app.retrieval.factory import get_index
 from app.worker import celery_app
+
+log = logging.getLogger(__name__)
 
 
 class JobFailed(Exception):
@@ -62,6 +67,7 @@ def _run(
         raise JobFailed(str(exc)) from exc
 
     result: dict[str, Any] = {
+        "questions_ready": _index(key, document),
         "document": {
             "page_count": document.page_count,
             "kind": document.kind.value,
@@ -76,6 +82,16 @@ def _run(
         report = QualificationEngine().evaluate(company, extraction.requirements, as_of)
         result["report"] = report.model_dump(mode="json")
     return result
+
+
+def _index(key: uuid.UUID, document: Any) -> bool:
+    """Stores the passages for questions. A failure here does not fail the job."""
+    try:
+        get_index().add(str(key), chunk_document(document))
+    except Exception:
+        log.exception("Indexing job %s for questions failed", key)
+        return False
+    return True
 
 
 def _progress(key: uuid.UUID):

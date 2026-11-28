@@ -33,6 +33,11 @@ _INDIC_NUMBER = re.compile(r"[٠-٩۰-۹](?:[٠-٩۰-۹٬٫,./]*[٠-٩۰-۹])?")
 _THOUSANDS = re.compile(r"[1-9]\d{0,2}(,\d{3})*(\.\d+)?|0(\.\d+)?")
 _DATE = re.compile(r"(19|20)\d{2}/\d{1,2}/\d{1,2}|\d{1,2}/\d{1,2}/(19|20)\d{2}")
 
+UNREADABLE = "[غير مقروء]"
+_TOKEN = re.compile(r"\S+")
+_LATIN_DIGIT = re.compile(r"[0-9]")
+_INDIC_DIGIT = re.compile(r"[٠-٩۰-۹]")
+
 MIN_MEANINGFUL_CHARS = 30
 MAX_GARBLED_RATIO = 0.15
 
@@ -49,6 +54,23 @@ def normalize_arabic(text: str) -> str:
     lines = [_SPACES.sub(" ", line).strip() for line in text.splitlines()]
     text = "\n".join(line for line in lines if line and not _is_punctuation_only(line))
     return _BLANK_LINES.sub("\n", text).strip()
+
+
+def mark_unreadable_numbers(text: str) -> str:
+    """Replaces OCR tokens that mix Latin and Arabic-Indic digits with a marker.
+
+    OCR misreads Arabic-Indic numbers into plausible but wrong values such as 11,210
+    for 120,000. A real number never mixes the two digit sets, so such a token is
+    marked unreadable rather than passed on as a number.
+    """
+
+    def check(match: re.Match[str]) -> str:
+        token = match.group()
+        if _LATIN_DIGIT.search(token) and _INDIC_DIGIT.search(token):
+            return UNREADABLE
+        return token
+
+    return _TOKEN.sub(check, text)
 
 
 def western_number(number: str) -> str:

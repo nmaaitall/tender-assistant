@@ -81,3 +81,10 @@ def test_summary_ratios():
     assert summary["recall"] == round(9 / 10, 4)
     assert summary["precision"] == 1.0
     assert summary["unsafe_values"] == 0
+
+
+@pytest.mark.parametrize("case", CASES, ids=[c["id"] for c in CASES])
+def test_scanned_copy_has_no_text_layer(case):
+    document = read_pdf((PDFS / "scanned" / f"{case['id']}.pdf").read_bytes())
+    assert document.page_count == len(case["pages"])
+    assert document.kind.value == "scanned"

@@ -4,6 +4,7 @@ Usage:
     python -m evals.run
     python -m evals.run --cases c01_baseline c06_distractors
     python -m evals.run --model openai/gpt-oss-20b
+    python -m evals.run --scanned        (scanned copies, read by OCR)
 """
 
 from __future__ import annotations
@@ -16,7 +17,7 @@ from pathlib import Path
 
 from app.config import settings
 from app.extraction import GroqClient, LLMError, TenderExtractor
-from app.ingestion import read_pdf
+from app.ingestion import TesseractOcr, read_pdf
 from evals.cases import CASES, FIELDS
 from evals.scoring import OUTCOMES, CaseScore, score_case, summarize
 
@@ -32,10 +33,15 @@ def main() -> None:
     parser.add_argument("--model", default=settings.groq_model)
     parser.add_argument("--cases", nargs="*", help="case ids to run (default: all)")
     parser.add_argument("--delay", type=float, default=3.0, help="seconds between calls")
+    parser.add_argument("--scanned", action="store_true", help="use the scanned copies")
     args = parser.parse_args()
 
     if not settings.groq_api_key:
         raise SystemExit("Set GROQ_API_KEY in .env first.")
+    if args.scanned and not TesseractOcr.available():
+        raise SystemExit("Tesseract is not installed: brew install tesseract tesseract-lang")
+    source = PDFS / "scanned" if args.scanned else PDFS
+    ocr = TesseractOcr() if args.scanned else None
 
     cases = [c for c in CASES if not args.cases or c["id"] in args.cases]
     extractor = TenderExtractor(
@@ -48,7 +54,9 @@ def main() -> None:
     for index, case in enumerate(cases):
         if index:
             time.sleep(args.delay)
-        document = read_pdf((PDFS / f"{case['id']}.pdf").read_bytes(), f"{case['id']}.pdf")
+        document = read_pdf(
+            (source / f"{case['id']}.pdf").read_bytes(), f"{case['id']}.pdf", ocr=ocr
+        )
         try:
             result = extractor.extract(document)
         except LLMError as exc:
@@ -61,7 +69,7 @@ def main() -> None:
 
     summary = summarize(scores)
     _print_summary(summary, failures)
-    _save(args.model, summary, scores, failures)
+    _save(args.model + ("_scanned" if args.scanned else ""), summary, scores, failures)
 
 
 def _case_line(score: CaseScore) -> str:

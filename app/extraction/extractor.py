@@ -24,6 +24,8 @@ from app.extraction.verify import (
 from app.ingestion import ExtractedDocument
 
 MONEY_FIELDS = {"min_registered_capital", "min_similar_project_value", "bid_guarantee_amount"}
+# Smaller amounts are not real tender requirements; they come from cut-off or misread numbers.
+MIN_PLAUSIBLE_AMOUNT = 100
 
 
 class TenderExtractor:
@@ -91,10 +93,13 @@ class TenderExtractor:
             return "work category does not match the quote"
         if name in MONEY_FIELDS:
             try:
-                if not number_in_quote(float(item["value"]), quote):
-                    return "amount does not appear in the quote"
+                amount = float(item["value"])
             except (TypeError, ValueError):
                 return "amount is not a number"
+            if amount < MIN_PLAUSIBLE_AMOUNT:
+                return "amount is implausibly small"
+            if not number_in_quote(amount, quote):
+                return "amount does not appear in the quote"
         return None
 
     def _build_requirements(self, values: dict[str, Any]) -> tuple[TenderRequirements, list[str]]:

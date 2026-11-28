@@ -1,0 +1,362 @@
+{
+  "model": "openai/gpt-oss-120b_scanned",
+  "summary": {
+    "cases": 12,
+    "field_accuracy": 0.9167,
+    "recall": 0.9115,
+    "precision": 1.0,
+    "unsafe_values": 0,
+    "verdict_agreement": 0.9167,
+    "outcomes": {
+      "correct": 103,
+      "missed": 10,
+      "absent": 7
+    },
+    "per_field": {
+      "reference": {
+        "correct": 12
+      },
+      "work_category": {
+        "correct": 11,
+        "missed": 1
+      },
+      "required_classification_grade": {
+        "correct": 12
+      },
+      "min_registered_capital": {
+        "correct": 10,
+        "absent": 1,
+        "missed": 1
+      },
+      "min_similar_projects": {
+        "correct": 10,
+        "absent": 2
+      },
+      "min_similar_project_value": {
+        "correct": 6,
+        "missed": 4,
+        "absent": 2
+      },
+      "experience_lookback_years": {
+        "correct": 10,
+        "absent": 2
+      },
+      "min_years_experience": {
+        "correct": 11,
+        "missed": 1
+      },
+      "submission_deadline": {
+        "correct": 11,
+        "missed": 1
+      },
+      "bid_guarantee_amount": {
+        "correct": 10,
+        "missed": 2
+      }
+    }
+  },
+  "failures": {},
+  "cases": [
+    {
+      "id": "c01_baseline",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "correct",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "qualified",
+      "actual_verdict": "qualified",
+      "rejected": [],
+      "details": {}
+    },
+    {
+      "id": "c02_roads",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "missed",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "not_qualified",
+      "actual_verdict": "not_qualified",
+      "rejected": [
+        {
+          "field": "min_similar_project_value",
+          "reason": "amount is implausibly small",
+          "page": 2,
+          "quote": "قيمة كل منها 0 دينار أردني على الأقل."
+        }
+      ],
+      "details": {
+        "min_similar_project_value": {
+          "expected": 400000,
+          "actual": null
+        }
+      }
+    },
+    {
+      "id": "c03_water_small",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "correct",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "not_qualified",
+      "actual_verdict": "not_qualified",
+      "rejected": [],
+      "details": {}
+    },
+    {
+      "id": "c04_electromech_large",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "correct",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "missed"
+      },
+      "expected_verdict": "not_qualified",
+      "actual_verdict": "not_qualified",
+      "rejected": [],
+      "details": {
+        "bid_guarantee_amount": {
+          "expected": 120000,
+          "actual": null
+        }
+      }
+    },
+    {
+      "id": "c05_missing_fields",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "absent",
+        "min_similar_projects": "absent",
+        "min_similar_project_value": "absent",
+        "experience_lookback_years": "absent",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "qualified",
+      "actual_verdict": "qualified",
+      "rejected": [],
+      "details": {}
+    },
+    {
+      "id": "c06_distractors",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "correct",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "missed",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "qualified",
+      "actual_verdict": "qualified",
+      "rejected": [],
+      "details": {
+        "min_years_experience": {
+          "expected": 4,
+          "actual": null
+        }
+      }
+    },
+    {
+      "id": "c07_list_format",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "correct",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "not_qualified",
+      "actual_verdict": "not_qualified",
+      "rejected": [],
+      "details": {}
+    },
+    {
+      "id": "c08_amounts_in_words",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "missed",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "missed",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "not_qualified",
+      "actual_verdict": "not_qualified",
+      "rejected": [
+        {
+          "field": "work_category",
+          "reason": "work category does not match the quote",
+          "page": 2,
+          "quote": "يشترط أن يكون المقاول مصنفا في مجال المباه والصرف الصحي بالفئة الثانية."
+        },
+        {
+          "field": "min_similar_project_value",
+          "reason": "quote not found on the cited page",
+          "page": 2,
+          "quote": "أن يكون قد نفذ مشروعين ممائلين خلال السنوات العشر الأخيرة لا تقل قيمة كل منهها عن ( 0 خمسمائة call دينار أردني."
+        }
+      ],
+      "details": {
+        "work_category": {
+          "expected": "water_and_sewerage",
+          "actual": null
+        },
+        "min_similar_project_value": {
+          "expected": 500000,
+          "actual": null
+        }
+      }
+    },
+    {
+      "id": "c09_other_works",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "absent",
+        "min_similar_project_value": "absent",
+        "experience_lookback_years": "absent",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "not_qualified",
+      "actual_verdict": "not_qualified",
+      "rejected": [],
+      "details": {}
+    },
+    {
+      "id": "c10_arabic_digits",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "missed",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "missed",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "missed",
+        "bid_guarantee_amount": "missed"
+      },
+      "expected_verdict": "qualified",
+      "actual_verdict": "qualified",
+      "rejected": [],
+      "details": {
+        "min_registered_capital": {
+          "expected": 120000,
+          "actual": null
+        },
+        "min_similar_project_value": {
+          "expected": 180000,
+          "actual": null
+        },
+        "submission_deadline": {
+          "expected": "2026-12-24",
+          "actual": null
+        },
+        "bid_guarantee_amount": {
+          "expected": 7500,
+          "actual": null
+        }
+      }
+    },
+    {
+      "id": "c11_spread_over_pages",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "missed",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "qualified",
+      "actual_verdict": "conditionally_qualified",
+      "rejected": [
+        {
+          "field": "min_similar_project_value",
+          "reason": "quote not found on the cited page",
+          "page": 4,
+          "quote": "تنفيز مشروعين ممائلين خلال السنوات الست الأخيرة لا تقل قيمة كل منهها عن 120,000 دينار"
+        }
+      ],
+      "details": {
+        "min_similar_project_value": {
+          "expected": 120000,
+          "actual": null
+        }
+      }
+    },
+    {
+      "id": "c12_million",
+      "outcomes": {
+        "reference": "correct",
+        "work_category": "correct",
+        "required_classification_grade": "correct",
+        "min_registered_capital": "correct",
+        "min_similar_projects": "correct",
+        "min_similar_project_value": "correct",
+        "experience_lookback_years": "correct",
+        "min_years_experience": "correct",
+        "submission_deadline": "correct",
+        "bid_guarantee_amount": "correct"
+      },
+      "expected_verdict": "not_qualified",
+      "actual_verdict": "not_qualified",
+      "rejected": [],
+      "details": {}
+    }
+  ]
+}

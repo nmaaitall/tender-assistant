@@ -12,8 +12,8 @@ rules in `app/domain/rules`, so every verdict is explainable and reproducible.
 
 ## Current state
 
-Domain layer, rule engine, PDF ingestion, LLM extraction and a REST API. No database,
-no background jobs and no OCR yet.
+Domain layer, rule engine, PDF ingestion with Arabic OCR, LLM extraction, an eval
+suite and a REST API. No database and no background jobs yet.
 
     app/
       config.py            application settings
@@ -24,6 +24,7 @@ no background jobs and no OCR yet.
         routes/            health and qualification endpoints
       ingestion/
         pdf_reader.py      page-by-page text extraction, OCR routing
+        ocr.py             Tesseract OCR engine
         text_quality.py    Arabic normalization and garbled-text detection
         models.py          extracted document and page models
       extraction/
@@ -48,6 +49,17 @@ Every page of an uploaded PDF is read separately and given a source:
 
 The document is then `digital`, `scanned` or `mixed`. Page numbers are kept so
 answers can cite the page they come from.
+
+Pages without a usable text layer are read by Tesseract OCR (Arabic and English).
+Each page is rendered at the resolution of the scan itself and cleaned with a median
+filter before OCR; upscaling a low-resolution scan was measured to lower accuracy.
+OCR output that mixes Latin and Arabic-Indic digits inside one number is replaced
+with `[غير مقروء]`, because those tokens are misreads that look like valid amounts
+(120,000 read as 11,210). Without Tesseract installed, scanned pages stay flagged
+as `needs_ocr`.
+
+    macOS:  brew install tesseract tesseract-lang
+    Debian: apt-get install tesseract-ocr tesseract-ocr-ara
 
 Known limitation: Word and LibreOffice exports often store the lam-alef ligature
 in reverse, so `الأولى` reads as `األولى`. The text stays usable for the model;
@@ -83,6 +95,8 @@ words; label: value layouts; Arabic-Indic digits; requirements spread over five 
 
     python -m evals.run
     python -m evals.run --cases c02_roads c10_arabic_digits
+    python -m evals.run --scanned      scanned copies, read by OCR
+    python -m evals.ocr_quality        OCR accuracy only, no model call
 
 Every field is scored as correct, correctly absent, missed, wrong or spurious. Wrong
 and spurious values are the ones that reach the rule engine, so they are reported
@@ -93,8 +107,25 @@ Results with `openai/gpt-oss-120b` on Groq:
 
 | Run | Field accuracy | Precision | Unsafe values | Verdict agreement |
 |---|---|---|---|---|
-| Baseline | 97.5% | 100% | 0 | 12/12 |
-| After matching fixes | 99.2% | 100% | 0 | 12/12 |
+| Digital, baseline | 97.5% | 100% | 0 | 12/12 |
+| Digital, after matching fixes | 99.2% | 100% | 0 | 12/12 |
+| Scanned, OCR | 91.7% | 100% | 0 | 11/12 |
+
+The scanned copies are image-only PDFs with scan damage (tilt, blur, speckle noise,
+150 dpi, JPEG compression), built with `python scripts/build_scanned_eval_set.py`.
+On them OCR reaches 97.6% character accuracy against 98.2% for the digital text
+layer, and keeps 39 of 45 amounts and dates intact.
+
+On scans, recall drops because damaged numbers are rejected rather than guessed: a
+number cut at a line start (400,000 read as 0) fails the minimum-amount check, and
+Arabic-Indic numbers that OCR mangles are marked unreadable. Every lost value fails
+safe as missed, so precision stays at 100%. The one verdict that differs is
+conditionally qualified instead of qualified, which asks for a manual check rather
+than giving a wrong answer.
+
+Remaining risk: OCR can misread Latin digits into another valid-looking number
+(120,000 read as 10000 in one case). The quote check cannot catch this, because the
+wrong number is then really on the page. The model did not use it in this run.
 
 The first run surfaced three real issues, all fixed: Arabic-Indic numbers stored in
 reverse by the PDF producer, quotes of a single date, and words split or glued by the

@@ -3,14 +3,17 @@ from datetime import date, datetime
 from typing import Any
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Response, UploadFile, status
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel, Field, ValidationError
 from sqlalchemy.orm import Session
 
+from app.api.dependencies import get_qa
 from app.api.uploads import read_upload_bytes
 from app.db import get_session
 from app.domain.company import CompanyProfile
+from app.extraction import LLMError
 from app.jobs.models import Job, JobStatus
 from app.jobs.tasks import process_tender
+from app.qa import Answer, TenderQA
 
 router = APIRouter(prefix="/jobs", tags=["jobs"])
 
@@ -19,6 +22,10 @@ class JobCreated(BaseModel):
     id: uuid.UUID
     status: JobStatus
     status_url: str
+
+
+class Question(BaseModel):
+    question: str = Field(min_length=3, max_length=500, examples=["ما قيمة كفالة دخول العطاء؟"])
 
 
 class JobView(BaseModel):
@@ -101,3 +108,30 @@ def get_job(job_id: uuid.UUID, session: Session = Depends(get_session)) -> JobVi
         error=job.error,
         result=job.result,
     )
+
+
+@router.post(
+    "/{job_id}/questions",
+    response_model=Answer,
+    summary="Ask a question about a processed tender",
+    description=(
+        "Answers from the tender's own text. Each answer cites quotes and pages that "
+        "were checked against the document; status is not_found when the tender does "
+        "not say, and unsupported when the model's answer failed the checks."
+    ),
+)
+def ask_question(
+    job_id: uuid.UUID,
+    body: Question,
+    session: Session = Depends(get_session),
+    qa: TenderQA = Depends(get_qa),
+) -> Answer:
+    job = session.get(Job, job_id)
+    if job is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Job not found.")
+    if job.status != JobStatus.SUCCEEDED or not (job.result or {}).get("questions_ready"):
+        raise HTTPException(status.HTTP_409_CONFLICT, "This tender is not ready for questions.")
+    try:
+        return qa.ask(str(job_id), body.question)
+    except LLMError as exc:
+        raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(exc)) from exc

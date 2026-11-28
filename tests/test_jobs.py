@@ -4,16 +4,23 @@ from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
+from qdrant_client import QdrantClient
 
 from app import db
+from app.api.dependencies import get_qa
 from app.extraction import ExtractionNotConfigured, LLMError, TenderExtractor
 from app.jobs import tasks
 from app.jobs.models import Job, JobStatus
 from app.main import app
+from app.qa import TenderQA
+from app.retrieval import ChunkIndex
 from app.worker import celery_app
 from tests.fake_llm import SAMPLE_RESPONSE, FakeLLM
 
 SAMPLE = Path(__file__).parent / "fixtures" / "sample_tender.pdf"
+
+
+INDEX = ChunkIndex(QdrantClient(":memory:"))
 
 
 @pytest.fixture(autouse=True)
@@ -21,6 +28,8 @@ def database(tmp_path, monkeypatch):
     engine = db.configure(f"sqlite:///{tmp_path / 'jobs.db'}")
     db.Base.metadata.create_all(engine)
     monkeypatch.setattr(tasks, "get_ocr", lambda: None)
+    # Lexical search in memory: no model download and no Qdrant server in tests.
+    monkeypatch.setattr(tasks, "get_index", lambda: INDEX)
     # Celery's lazy config object cannot be restored by monkeypatch, so set it directly.
     eager = celery_app.conf.task_always_eager
     celery_app.conf.task_always_eager = True
@@ -155,3 +164,48 @@ def test_progress_is_reported_per_page(fake_model, monkeypatch):
 def test_result_is_plain_json(fake_model, profile):
     job = client.get(_submit(profile).json()["status_url"]).json()
     json.dumps(job["result"])
+
+
+GUARANTEE_ANSWER = {
+    "answer": "قيمة كفالة دخول العطاء 20,000 دينار أردني.",
+    "citations": [{"page": 3, "quote": "كفالة دخول عطاء بقيمة 20,000 دينار أردني"}],
+}
+
+
+@pytest.fixture
+def fake_qa():
+    llm = FakeLLM(GUARANTEE_ANSWER)
+    app.dependency_overrides[get_qa] = lambda: TenderQA(llm, INDEX)
+    yield llm
+    app.dependency_overrides.pop(get_qa, None)
+
+
+def test_question_about_a_processed_tender(fake_model, fake_qa):
+    job = client.get(_submit().json()["status_url"]).json()
+    assert job["result"]["questions_ready"] is True
+
+    response = client.post(
+        f"/api/v1/jobs/{job['id']}/questions", json={"question": "ما قيمة كفالة دخول العطاء؟"}
+    )
+    assert response.status_code == 200
+    body = response.json()
+    assert body["status"] == "answered"
+    assert body["citations"][0]["page"] == 3
+
+
+def test_question_about_an_unknown_job(fake_qa):
+    response = client.post(f"/api/v1/jobs/{uuid.uuid4()}/questions", json={"question": "سؤال؟"})
+    assert response.status_code == 404
+
+
+def test_question_before_the_index_is_ready(fake_model, fake_qa, monkeypatch):
+    def broken():
+        raise RuntimeError("qdrant is down")
+
+    monkeypatch.setattr(tasks, "get_index", broken)
+    job = client.get(_submit().json()["status_url"]).json()
+    assert job["status"] == "succeeded"
+    assert job["result"]["questions_ready"] is False
+
+    response = client.post(f"/api/v1/jobs/{job['id']}/questions", json={"question": "سؤال؟"})
+    assert response.status_code == 409

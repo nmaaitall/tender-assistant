@@ -12,7 +12,8 @@ def get_ocr() -> OcrEngine | None:
     return None
 
 
-async def read_pdf_upload(file: UploadFile) -> ExtractedDocument:
+async def read_upload_bytes(file: UploadFile) -> bytes:
+    """Reads an upload and checks it is a non-empty PDF within the size limit."""
     data = await file.read()
     max_bytes = settings.max_upload_mb * 1024 * 1024
 
@@ -25,7 +26,11 @@ async def read_pdf_upload(file: UploadFile) -> ExtractedDocument:
         )
     if not data.startswith(_PDF_MAGIC):
         raise HTTPException(status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, "Only PDF files are accepted.")
+    return data
 
+
+async def read_pdf_upload(file: UploadFile) -> ExtractedDocument:
+    data = await read_upload_bytes(file)
     try:
         return read_pdf(data, filename=file.filename or "document.pdf", ocr=get_ocr())
     except PdfReadError as exc:

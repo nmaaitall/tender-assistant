@@ -13,11 +13,17 @@ rules in `app/domain/rules`, so every verdict is explainable and reproducible.
 ## Current state
 
 Domain layer, rule engine, PDF ingestion with Arabic OCR, LLM extraction, an eval
-suite and a REST API. No database and no background jobs yet.
+suite, background jobs (Celery and Redis) with results stored in Postgres, and a
+REST API.
 
     app/
       config.py            application settings
       main.py              FastAPI application
+      db.py                SQLAlchemy engine and sessions
+      worker.py            Celery application
+      jobs/
+        models.py          job table: upload, status, progress, result
+        tasks.py           background task: OCR, extraction, verdict
       api/
         schemas.py         request and response models
         dependencies.py    engine injection
@@ -131,6 +137,23 @@ The first run surfaced three real issues, all fixed: Arabic-Indic numbers stored
 reverse by the PDF producer, quotes of a single date, and words split or glued by the
 text layer around tanween. The PDFs are rebuilt with `python scripts/build_eval_set.py`.
 
+## Background jobs
+
+OCR takes about half a second per page, so a long tender is too slow for one HTTP
+request. `POST /api/v1/jobs` stores the PDF and returns `202 Accepted` with a job id
+at once; a Celery worker runs OCR, extraction and, when a company profile is sent,
+the verdict. `GET /api/v1/jobs/{id}` reports status, pages done and the result.
+
+- Redis carries the task messages only. Status, progress and results live in
+  Postgres, so the API answers without asking Celery.
+- Tasks are acknowledged after they finish, so a worker crash requeues the job, and a
+  task that finds its job already started does nothing, so a redelivered message
+  cannot run a job twice.
+- If the queue is down the upload is refused with 503 and the job is kept as failed
+  with the reason, rather than lost.
+- The schema is managed with Alembic. A test checks that the migrations build the
+  same tables as the models.
+
 ## Rules
 
 Three rules run against every tender, following the Government Tenders
@@ -157,19 +180,31 @@ data) or `not_applicable` (the tender does not state the requirement).
 Copy `.env.example` to `.env` and set `GROQ_API_KEY`. Without it the extraction
 endpoints return 503 and everything else works.
 
+## Run with Docker Compose
+
+    docker compose up --build
+
+Starts the API on port 8000, a worker, Postgres and Redis. The API applies database
+migrations on start.
+
 ## Run locally
 
     python3.12 -m venv .venv
     source .venv/bin/activate
     pip install -r requirements-dev.txt
     pytest
+    alembic upgrade head
     uvicorn app.main:app --reload
 
+Locally the database is a SQLite file. Jobs need a worker and Redis:
+
+    brew install redis && brew services start redis
+    celery -A app.worker worker --loglevel=info
+
+Or set `CELERY_EAGER=true` in `.env` to run jobs inside the API process without
+Redis or a worker.
+
 Interactive documentation: http://localhost:8000/docs
-
-## Run with Docker
-
-    docker compose up --build
 
 ## API
 
@@ -177,4 +212,6 @@ Interactive documentation: http://localhost:8000/docs
     POST /api/v1/documents/inspect
     POST /api/v1/tenders/extract
     POST /api/v1/tenders/evaluate
+    POST /api/v1/jobs
+    GET  /api/v1/jobs/{id}
     POST /api/v1/qualification/evaluate

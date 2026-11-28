@@ -1,18 +1,59 @@
+x-app: &app
+  build: .
+  image: tender-assistant-api
+  env_file:
+    - path: .env
+      required: false
+  environment:
+    DATABASE_URL: postgresql+psycopg://tender:tender@postgres:5432/tender
+    REDIS_URL: redis://redis:6379/0
+  depends_on:
+    postgres:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+
 services:
   api:
-    build: .
-    image: tender-assistant-api
+    <<: *app
     container_name: tender-assistant-api
     ports:
       - "8000:8000"
-    env_file:
-      - path: .env
-        required: false
-    volumes:
-      - ./app:/srv/app
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
       interval: 30s
       timeout: 5s
       retries: 3
+
+  worker:
+    <<: *app
+    container_name: tender-assistant-worker
+    command: celery -A app.worker worker --loglevel=info --concurrency=2
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: tender-assistant-postgres
+    environment:
+      POSTGRES_USER: tender
+      POSTGRES_PASSWORD: tender
+      POSTGRES_DB: tender
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tender -d tender"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: tender-assistant-redis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  postgres-data:

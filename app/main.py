@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.api.routes import documents, health, qualification, tenders
+from app.api.routes import documents, health, jobs, qualification, tenders
 from app.config import settings
 
 app = FastAPI(
@@ -15,4 +15,5 @@ app = FastAPI(
 app.include_router(health.router)
 app.include_router(documents.router, prefix=settings.api_prefix)
 app.include_router(tenders.router, prefix=settings.api_prefix)
+app.include_router(jobs.router, prefix=settings.api_prefix)
 app.include_router(qualification.router, prefix=settings.api_prefix)

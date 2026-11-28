@@ -10,3 +10,5 @@ venv/
 
 *.db
 qdrant_data/
+mlruns/
+mlflow.db

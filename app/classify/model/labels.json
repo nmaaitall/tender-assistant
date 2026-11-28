@@ -1,0 +1,10 @@
+{
+  "labels": [
+    "roads",
+    "buildings",
+    "electromechanical",
+    "water_and_sewerage",
+    "other_works"
+  ],
+  "max_tokens": 256
+}

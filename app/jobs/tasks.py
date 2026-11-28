@@ -3,9 +3,11 @@ from __future__ import annotations
 import logging
 import uuid
 from datetime import UTC, datetime
+from functools import lru_cache
 from typing import Any
 
 from app.api.uploads import get_ocr
+from app.classify import CategoryClassifier
 from app.db import session_scope
 from app.domain.company import CompanyProfile
 from app.domain.rules import QualificationEngine
@@ -75,6 +77,7 @@ def _run(
             "unreadable_pages": document.unreadable_pages,
         },
         "extraction": extraction.model_dump(mode="json"),
+        "category_check": _category_check(document, extraction.requirements.work_category),
         "report": None,
     }
     if profile is not None:
@@ -82,6 +85,32 @@ def _run(
         report = QualificationEngine().evaluate(company, extraction.requirements, as_of)
         result["report"] = report.model_dump(mode="json")
     return result
+
+
+# Below this confidence the classifier's disagreement is not reported.
+FLAG_CONFIDENCE = 0.7
+
+
+@lru_cache
+def get_classifier() -> CategoryClassifier | None:
+    return CategoryClassifier() if CategoryClassifier.available() else None
+
+
+def _category_check(document: Any, extracted: Any) -> dict[str, Any] | None:
+    """A second opinion on the work category from the trained classifier."""
+    classifier = get_classifier()
+    if classifier is None or not document.pages:
+        return None
+    prediction = classifier.predict(document.pages[0].text)
+    extracted = extracted.value if extracted is not None else None
+    return {
+        "predicted": prediction.category,
+        "confidence": prediction.confidence,
+        "extracted": extracted,
+        "flagged": extracted is not None
+        and prediction.category != extracted
+        and prediction.confidence >= FLAG_CONFIDENCE,
+    }
 
 
 def _index(key: uuid.UUID, document: Any) -> bool:

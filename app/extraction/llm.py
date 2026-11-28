@@ -24,7 +24,7 @@ class GroqClient:
     retry_statuses = {429, 500, 502, 503, 504}
 
     def __init__(
-        self, api_key: str, model: str, timeout: float = 60.0, max_attempts: int = 3
+        self, api_key: str, model: str, timeout: float = 60.0, max_attempts: int = 5
     ) -> None:
         self.api_key = api_key
         self.model = model

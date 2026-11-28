@@ -256,3 +256,21 @@ def test_category_word_with_attached_waw():
     quote = "مصنفا في مجال المباه والصرف الصحي بالفئة الثانية"
     assert category_in_quote("water_and_sewerage", quote)
     assert not category_in_quote("roads", quote)
+
+
+def test_category_keyword_starting_with_prefix_letter():
+    from app.extraction.verify import category_in_quote
+
+    clean = "يقتصر الاشتراك على المقاولين المصنفين في مجال الأعمال الكهروميكانيكية بالفئة الأولى"
+    reversed_ligature = ".يقتصر االشتراك على المقاولين المصنفين في مجال األعمال الكهروميكانيكية"
+    for quote in (clean, reversed_ligature):
+        assert category_in_quote("electromechanical", quote)
+        assert not category_in_quote("buildings", quote)
+
+
+def test_grade_words():
+    from app.extraction.verify import grade_in_quote
+
+    assert grade_in_quote(1, "مصنفين بالفئة الأولى")
+    assert grade_in_quote(3, "من الفئة الثالثة")
+    assert not grade_in_quote(3, "بالفئة الرابعة")

@@ -82,10 +82,20 @@ class CaseScore:
     actual_verdict: str
     rejected: list[dict[str, Any]] = field(default_factory=list)
     details: dict[str, dict[str, Any]] = field(default_factory=dict)
+    model_calls: int = 1
 
     @property
     def verdict_matches(self) -> bool:
         return self.expected_verdict == self.actual_verdict
+
+    @property
+    def verdict_outcome(self) -> str:
+        """match; cautious when it asks for a manual check; wrong otherwise."""
+        if self.verdict_matches:
+            return "match"
+        if self.actual_verdict == Verdict.CONDITIONALLY_QUALIFIED.value:
+            return "cautious"
+        return "wrong"
 
 
 def normalize(value: Any) -> Any:
@@ -149,6 +159,7 @@ def score_case(case: dict[str, Any], result: ExtractionResult) -> CaseScore:
         expected_verdict=Verdict(expected_verdict).value,
         actual_verdict=Verdict(actual_verdict).value,
         rejected=[r.model_dump() for r in result.rejected],
+        model_calls=result.model_calls,
         details=details,
     )
 
@@ -169,6 +180,8 @@ def summarize(scores: list[CaseScore]) -> dict[str, Any]:
         "precision": _ratio(totals["correct"], extracted),
         "unsafe_values": totals["wrong"] + totals["spurious"],
         "verdict_agreement": _ratio(sum(s.verdict_matches for s in scores), len(scores)),
+        "verdicts": dict(Counter(s.verdict_outcome for s in scores)),
+        "model_calls_per_case": _ratio(sum(s.model_calls for s in scores), len(scores)),
         "outcomes": dict(totals),
         "per_field": {name: dict(counts) for name, counts in per_field.items()},
     }

@@ -46,3 +46,19 @@ Rules:
 
 def build_user_prompt(document: ExtractedDocument) -> str:
     return f"Tender document:\n\n{document.full_text()}"
+
+
+def build_retry_prompt(
+    document: ExtractedDocument, fields: list[str], reasons: dict[str, str]
+) -> str:
+    """Asks again for the fields a first reading missed or got rejected."""
+    lines = []
+    for name in fields:
+        note = f" (a first answer was rejected: {reasons[name]})" if name in reasons else ""
+        lines.append(f"- {name}: {FIELDS[name]}{note}")
+    return (
+        f"{build_user_prompt(document)}\n\n"
+        "A first reading did not return these fields. Read the document again and return "
+        "only these fields, each with its page and an exact quote. Leave out any field the "
+        "document truly does not state.\n" + "\n".join(lines)
+    )

@@ -115,8 +115,9 @@ def number_in_quote(value: float | int, quote: str) -> bool:
 
 
 def _loose(word: str) -> str:
-    # Drops alef and lam so attached articles and the lam-alef ligature stop mattering.
-    return compact(word).replace("ا", "").replace("ل", "")
+    # Drops one attached prefix (و ب ال ...), then alef and lam, so articles and the
+    # lam-alef ligature stop mattering.
+    return stem(word).replace("ا", "").replace("ل", "")
 
 
 def date_in_quote(value: str, quote: str) -> bool:

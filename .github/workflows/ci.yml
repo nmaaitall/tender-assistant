@@ -16,14 +16,17 @@ jobs:
           python-version: "3.12"
           cache: pip
 
+      - name: Install Tesseract
+        run: sudo apt-get update && sudo apt-get install -y tesseract-ocr tesseract-ocr-ara
+
       - name: Install dependencies
         run: pip install -r requirements-dev.txt
 
       - name: Lint
-        run: ruff check app tests
+        run: ruff check app tests evals scripts
 
       - name: Format check
-        run: ruff format --check app tests
+        run: ruff format --check app tests evals scripts
 
       - name: Test
         run: pytest -q
@@ -36,6 +39,9 @@ jobs:
 
       - name: Build image
         run: docker build -t tender-assistant-api:${{ github.sha }} .
+
+      - name: Check Tesseract in the image
+        run: docker run --rm tender-assistant-api:${{ github.sha }} tesseract --list-langs
 
       - name: Smoke test the image
         run: |

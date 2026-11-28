@@ -39,6 +39,8 @@ Rules:
 - Numbers are plain numbers without commas or currency.
 - Page numbers come from the [page N] markers.
 - Check every field in the list. Leaving out a field the document does state is an error.
+- [غير مقروء] marks text that could not be read from a scan. Never take or guess a value
+  from it; leave that field out.
 """
 
 

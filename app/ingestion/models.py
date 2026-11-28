@@ -9,6 +9,7 @@ class PageSource(StrEnum):
     """Where the text of a page comes from."""
 
     TEXT_LAYER = "text_layer"
+    OCR = "ocr"
     NEEDS_OCR = "needs_ocr"
 
 
@@ -42,6 +43,13 @@ class ExtractedDocument(BaseModel):
     @computed_field
     @property
     def ocr_pages(self) -> list[int]:
+        """Pages without a usable text layer, whether or not OCR has read them."""
+        return [p.page_number for p in self.pages if p.source is not PageSource.TEXT_LAYER]
+
+    @computed_field
+    @property
+    def unreadable_pages(self) -> list[int]:
+        """Pages that still have no text: OCR is unavailable or could not read them."""
         return [p.page_number for p in self.pages if p.source is PageSource.NEEDS_OCR]
 
     @computed_field
@@ -55,7 +63,7 @@ class ExtractedDocument(BaseModel):
 
     @property
     def needs_ocr(self) -> bool:
-        return bool(self.ocr_pages)
+        return bool(self.unreadable_pages)
 
     def full_text(self) -> str:
         """Readable text with page markers, so later steps can cite page numbers."""

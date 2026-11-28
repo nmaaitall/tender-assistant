@@ -3,7 +3,7 @@ from pathlib import Path
 import pymupdf
 import pytest
 
-from app.ingestion import DocumentKind, PageSource, PdfReadError, read_pdf
+from app.ingestion import DocumentKind, PageSource, PdfReadError, TesseractOcr, read_pdf
 from app.ingestion.models import OcrReason
 from app.ingestion.text_quality import garbled_ratio, is_usable, normalize_arabic
 
@@ -128,3 +128,88 @@ def test_arabic_indic_numbers(raw, expected):
 
 def test_reversed_arabic_indic_amount_in_a_sentence():
     assert normalize_arabic("ألا يقل عن ٠٠٠,٠٢١ دينار") == "ألا يقل عن 120,000 دينار"
+
+
+class FakeOcr:
+    def __init__(self, text: str) -> None:
+        self.text = text
+        self.calls = 0
+
+    def recognize(self, image_png: bytes) -> str:
+        self.calls += 1
+        assert image_png.startswith(b"\x89PNG")
+        return self.text
+
+
+class FailingOcr:
+    def recognize(self, image_png: bytes) -> str:
+        from app.ingestion import OcrError
+
+        raise OcrError("boom")
+
+
+OCR_TEXT = "يجب ألا يقل رأس المال المسجل للمقاول عن 100,000 دينار أردني."
+
+
+def test_ocr_reads_scanned_pages(sample_bytes):
+    ocr = FakeOcr(OCR_TEXT)
+    document = read_pdf(_as_scanned(sample_bytes), ocr=ocr)
+
+    assert ocr.calls == 4
+    assert all(p.source is PageSource.OCR for p in document.pages)
+    assert document.kind is DocumentKind.SCANNED
+    assert document.ocr_pages == [1, 2, 3, 4]
+    assert document.unreadable_pages == []
+    assert "100,000" in document.pages[0].text
+
+
+def test_ocr_is_not_used_on_digital_pages(sample_bytes):
+    ocr = FakeOcr(OCR_TEXT)
+    document = read_pdf(_as_scanned(sample_bytes, scanned_pages={3}), ocr=ocr)
+
+    assert ocr.calls == 1
+    assert [p.source for p in document.pages] == [
+        PageSource.TEXT_LAYER,
+        PageSource.TEXT_LAYER,
+        PageSource.OCR,
+        PageSource.TEXT_LAYER,
+    ]
+
+
+def test_page_stays_unreadable_when_ocr_fails(sample_bytes):
+    document = read_pdf(_as_scanned(sample_bytes, scanned_pages={2}), ocr=FailingOcr())
+    assert document.unreadable_pages == [2]
+    assert document.needs_ocr
+
+
+def test_page_stays_unreadable_when_ocr_finds_nothing(sample_bytes):
+    document = read_pdf(_as_scanned(sample_bytes, scanned_pages={2}), ocr=FakeOcr(" . "))
+    assert document.unreadable_pages == [2]
+
+
+requires_tesseract = pytest.mark.skipif(
+    not TesseractOcr.available(), reason="Tesseract is not installed"
+)
+
+
+@requires_tesseract
+def test_tesseract_reads_a_scanned_arabic_page(sample_bytes):
+    scanned = _as_scanned(sample_bytes, scanned_pages={2})
+    document = read_pdf(scanned, ocr=TesseractOcr())
+    page = document.pages[1]
+
+    assert page.source is PageSource.OCR
+    assert "100,000" in page.text
+    assert "250,000" in page.text
+    assert "رأس المال" in page.text
+
+
+def test_mixed_digit_scripts_are_marked_unreadable():
+    from app.ingestion.text_quality import UNREADABLE, mark_unreadable_numbers
+
+    ocr_output = "ألا يقل رأس المال عن 1١,2٠١ دينار وكفالة 35,000 دينار و١٢٠,٠٠٠"
+    marked = mark_unreadable_numbers(ocr_output)
+    assert UNREADABLE in marked
+    assert "1١,2٠١" not in marked
+    assert "35,000" in marked
+    assert "١٢٠,٠٠٠" in marked

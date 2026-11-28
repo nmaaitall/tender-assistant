@@ -23,7 +23,7 @@ def _extract(document: ExtractedDocument, extractor: TenderExtractor) -> Extract
     if not any(page.text for page in document.pages):
         raise HTTPException(
             422,
-            "No page has a usable text layer. OCR is not supported yet.",
+            "No page has readable text. Scanned documents need Tesseract OCR installed.",
         )
     try:
         return extractor.extract(document)

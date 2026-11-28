@@ -220,3 +220,39 @@ def test_date_in_quote():
     assert date_in_quote("2026-10-15", "بتاريخ 15/10/2026")
     assert date_in_quote("2026-12-24", "٢٠٢٦/١٢/٢٤")
     assert not date_in_quote("2026-10-15", "من يوم 2026/10/16")
+
+
+def test_cut_off_amount_is_rejected():
+    from app.ingestion import ExtractedDocument, PageSource, PageText
+
+    document = ExtractedDocument(
+        filename="scan.pdf",
+        page_count=1,
+        pages=[
+            PageText(
+                page_number=1,
+                source=PageSource.OCR,
+                text="قيمة كل منها\n0 دينار أردني على الأقل.",
+            )
+        ],
+    )
+    response = {
+        "fields": {
+            "min_similar_project_value": {
+                "value": 0,
+                "page": 1,
+                "quote": "0 دينار أردني على الأقل",
+            }
+        }
+    }
+    result = _extract(document, response)
+    assert result.requirements.min_similar_project_value is None
+    assert result.rejected[0].reason == "amount is implausibly small"
+
+
+def test_category_word_with_attached_waw():
+    from app.extraction.verify import category_in_quote
+
+    quote = "مصنفا في مجال المباه والصرف الصحي بالفئة الثانية"
+    assert category_in_quote("water_and_sewerage", quote)
+    assert not category_in_quote("roads", quote)

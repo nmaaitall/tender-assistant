@@ -38,6 +38,12 @@ REST API.
         prompt.py          extraction prompt
         extractor.py       model output to TenderRequirements, with checks
         verify.py          quote matching against the page text
+      retrieval/
+        chunking.py        page-bound passages
+        sparse.py          Arabic lexical vectors
+        embeddings.py      multilingual sentence embeddings (ONNX, CPU)
+        index.py           Qdrant storage and lexical, dense or hybrid search
+        rerank.py          cross-encoder reranking
       domain/
         company.py         company profile model
         tender.py          extracted tender requirements model
@@ -150,6 +156,53 @@ wrong number is then really on the page. The model did not use it in this run.
 The first run surfaced three real issues, all fixed: Arabic-Indic numbers stored in
 reverse by the PDF producer, quotes of a single date, and words split or glued by the
 text layer around tanween. The PDFs are rebuilt with `python scripts/build_eval_set.py`.
+
+## Retrieval
+
+Questions about a tender are answered from its own text, so the first step is
+finding the right passage. Each page is split into passages of one or two sentences
+that never cross a page, so an answer cites one page and one requirement.
+
+Every passage is stored in Qdrant with two vectors:
+
+- lexical: words normalized like the citation check, with the article and common
+  suffixes removed (بالكفالة and كفالة, مماثلة and مماثلين match); Qdrant applies IDF
+- dense: a multilingual embedding model, run on CPU through ONNX
+
+Hybrid search runs both and merges them with reciprocal rank fusion. The top 20
+are then reranked by a multilingual cross-encoder (`bge-reranker-v2-m3`, int8), which
+reads the question and each passage together.
+
+`python -m evals.retrieval` asks two questions for every stated requirement in the
+eval tenders: one in the tender's wording and one paraphrased. Sixteen pages of
+general contract conditions (performance bond, delay penalties, insurance, required
+certificates) are added to every tender, because a real tender is long and shares
+many words with the questions. A search counts as a hit when a returned passage
+holds the requirement.
+
+    python -m evals.retrieval              lexical only
+    python -m evals.retrieval --dense      lexical, dense and hybrid
+    python -m evals.retrieval --dense --model google/embeddinggemma-300m
+    python -m evals.retrieval --dense --rerank
+    python -m evals.retrieval --scanned    scanned copies, read by OCR
+
+Share of questions whose answer passage is ranked first (hit@1) or in the top three
+(hit@3), on the digital tenders:
+
+| Search | Tender wording hit@1 | hit@3 | Paraphrased hit@1 | hit@3 |
+|---|---|---|---|---|
+| Lexical | 88.9% | 98.8% | 13.6% | 18.5% |
+| Dense, MiniLM-L12 | 38.3% | 77.8% | 30.9% | 55.6% |
+| Dense, Qwen3-Embedding-0.6B | 66.7% | 96.3% | 27.2% | 45.7% |
+| Dense, embeddinggemma-300m | 82.7% | 98.8% | 7.4% | 54.3% |
+| Hybrid, embeddinggemma | 90.1% | 98.8% | 14.8% | 25.9% |
+| Hybrid + reranker | 96.3% | 98.8% | 29.6% | 66.7% |
+
+The first dense model, MiniLM, truncates at 128 tokens and missed requirements at the
+end of long passages; splitting by sentence and moving to embeddinggemma fixed most of
+that. Paraphrased questions remain the hard case: the nearest wrong passage is usually
+a look-alike clause (performance bond for bid bond, contract duration for the
+submission deadline), which the reranker separates best.
 
 ## Background jobs
 

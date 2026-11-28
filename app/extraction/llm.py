@@ -43,7 +43,8 @@ class GroqClient:
         }
         try:
             response = self._post(payload)
-            response.raise_for_status()
+            if response.is_error:
+                raise LLMError(f"Model call failed: {response.status_code} {_reason(response)}")
             content = response.json()["choices"][0]["message"]["content"]
             data = json.loads(content)
         except (httpx.HTTPError, KeyError, IndexError, json.JSONDecodeError) as exc:
@@ -62,6 +63,14 @@ class GroqClient:
                 return response
             time.sleep(_retry_delay(response, attempt))
         return response
+
+
+def _reason(response: httpx.Response) -> str:
+    # Groq explains rate limits in the body: which limit, and when it resets.
+    try:
+        return str(response.json()["error"]["message"])[:300]
+    except (ValueError, KeyError, TypeError):
+        return response.reason_phrase
 
 
 def _retry_delay(response: httpx.Response, attempt: int) -> float:

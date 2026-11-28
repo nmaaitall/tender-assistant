@@ -44,6 +44,9 @@ REST API.
         embeddings.py      multilingual sentence embeddings (ONNX, CPU)
         index.py           Qdrant storage and lexical, dense or hybrid search
         rerank.py          cross-encoder reranking
+      qa/
+        answerer.py        answers from retrieved passages, with checked citations
+        prompt.py          question answering prompt
       domain/
         company.py         company profile model
         tender.py          extracted tender requirements model
@@ -191,18 +194,57 @@ Share of questions whose answer passage is ranked first (hit@1) or in the top th
 
 | Search | Tender wording hit@1 | hit@3 | Paraphrased hit@1 | hit@3 |
 |---|---|---|---|---|
-| Lexical | 88.9% | 98.8% | 13.6% | 18.5% |
-| Dense, MiniLM-L12 | 38.3% | 77.8% | 30.9% | 55.6% |
-| Dense, Qwen3-Embedding-0.6B | 66.7% | 96.3% | 27.2% | 45.7% |
-| Dense, embeddinggemma-300m | 82.7% | 98.8% | 7.4% | 54.3% |
-| Hybrid, embeddinggemma | 90.1% | 98.8% | 14.8% | 25.9% |
-| Hybrid + reranker | 96.3% | 98.8% | 29.6% | 66.7% |
+| Lexical | 88.9% | 98.8% | 13.6% | 19.8% |
+| Dense, MiniLM-L12 | 38.3% | 77.8% | - | - |
+| Dense, Qwen3-Embedding-0.6B | 66.7% | 96.3% | - | - |
+| Dense, embeddinggemma-300m | 82.7% | 98.8% | 17.3% | 66.7% |
+| Hybrid, embeddinggemma | 90.1% | 98.8% | 14.8% | 38.3% |
+| Hybrid + reranker | 96.3% | 98.8% | 38.3% | 72.8% |
+
+MiniLM and Qwen3 were compared on the tender-wording questions only; they were
+dropped before one ambiguous paraphrase was rewritten (see Questions).
 
 The first dense model, MiniLM, truncates at 128 tokens and missed requirements at the
 end of long passages; splitting by sentence and moving to embeddinggemma fixed most of
 that. Paraphrased questions remain the hard case: the nearest wrong passage is usually
 a look-alike clause (performance bond for bid bond, contract duration for the
 submission deadline), which the reranker separates best.
+
+## Questions
+
+`TenderQA` answers a question about one indexed tender. The five best passages go
+to the model with the question; it answers from them only, cites a quote and page
+for each fact, or returns nothing when the passages do not say. Before an answer is
+returned:
+
+- every quote must be found in a passage from the cited page
+- every amount or year in the answer must appear in a cited quote
+- an answer with no valid citation is reported as `unsupported`, never as fact
+
+`python -m evals.qa` asks every eval tender about each requirement, about the
+requirements it does not state, and two questions no tender answers (the price of
+the tender documents, alternative offers). Answers are scored as correct, wrong,
+missed, refused or invented; wrong and invented answers are the unsafe ones.
+
+    python -m evals.qa                     hybrid search with reranking
+    python -m evals.qa --paraphrase        paraphrased questions
+    python -m evals.qa --lexical           lexical search only
+
+Results with `openai/gpt-oss-120b`, hybrid search and reranking, questions in the
+tender's wording:
+
+| Answer accuracy | Refusals | Unsafe answers | Unsupported |
+|---|---|---|---|
+| 98.8% (80 of 81) | 100% (27 of 27) | 0 | 0 |
+
+The one miss is a tender that writes تاريخ الإغلاق instead of آخر موعد لتقديم
+العروض; the model answered not found rather than guess.
+
+A first run with paraphrased questions showed one question was ambiguous: "منذ متى
+يجب أن تعمل الشركة" also asks when work starts, which the contract start clause
+answers, and the model cited that clause. The question was rewritten to ask for
+years of experience. The scorer also missed counts written as words with tanween
+(عملاً واحداً); it was fixed and tested.
 
 ## Background jobs
 

@@ -1,0 +1,2532 @@
+{
+  "summary": {
+    "questions": 104,
+    "failed_calls": 4,
+    "outcomes": {
+      "correct": 62,
+      "missed": 10,
+      "refused": 26,
+      "wrong": 6
+    },
+    "answer_accuracy": 0.7949,
+    "refusal_rate": 1.0,
+    "unsafe_answers": 6,
+    "unsupported": 1
+  },
+  "rows": [
+    {
+      "case": "c01_baseline",
+      "field": "work_category",
+      "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+      "expected": "buildings",
+      "outcome": "correct",
+      "answer": {
+        "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة في مجال الأبنية",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يحق االشتراك في هذا العطاء للمقاولين األردنيين المصنفين لدى دائرة العطاءات الحكومية في مجال األبنية بالفئة الثالثة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          9,
+          16,
+          19
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c01_baseline",
+      "field": "required_classification_grade",
+      "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+      "expected": 3,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة في الفئة الثالثة أو أعلى",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يحق االشتراك في هذا العطاء للمقاولين األردنيين المصنفين لدى دائرة العطاءات الحكومية في مجال األبنية بالفئة الثالثة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          4,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c01_baseline",
+      "field": "min_registered_capital",
+      "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+      "expected": 100000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+        "status": "answered",
+        "answer": "100,000 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يجب أال يقل رأس المال المسجل للمقاول عن 100,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          14,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c01_baseline",
+      "field": "min_similar_projects",
+      "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة قد نفذت مشروعين مماثلين",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يشترط أن يكون المقاول قد نفذ مشروعين مماثلين على األقل خالل السنوات الخمس األخيرة ال تقل قيمة كل منهما عن 250,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          5,
+          11,
+          14
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c01_baseline",
+      "field": "min_years_experience",
+      "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+      "expected": 3,
+      "outcome": "missed",
+      "answer": {
+        "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+        "status": "unsupported",
+        "answer": "يجب أن تكون الشركة قد نفذت مشاريع مماثلة خلال الخمس سنوات الأخيرة",
+        "citations": [],
+        "pages_read": [
+          2,
+          4,
+          11,
+          14
+        ],
+        "reason": "no citation was found in the passages"
+      }
+    },
+    {
+      "case": "c01_baseline",
+      "field": "submission_deadline",
+      "question": "متى ينتهي استلام الطلبات؟",
+      "expected": "2026-10-15",
+      "outcome": "missed",
+      "answer": {
+        "question": "متى ينتهي استلام الطلبات؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          4,
+          7,
+          11,
+          14,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c01_baseline",
+      "field": "bid_guarantee_amount",
+      "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+      "expected": 20000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+        "status": "answered",
+        "answer": "مبلغ الضمان المالي هو 20,000 دينار أردني",
+        "citations": [
+          {
+            "page": 3,
+            "quote": "يقدم المقاول مع عرضه كفالة دخول عطاء بقيمة 20,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          3,
+          4,
+          16,
+          17,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c01_baseline",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          2,
+          4,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c01_baseline",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          9,
+          13,
+          17,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": "work_category",
+      "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+      "expected": "roads",
+      "outcome": "correct",
+      "answer": {
+        "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة معتمدة في أعمال مجال الطرق (الفئة الثانية فما فوق).",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "شروط االشتراك في مجال الطرق بالفئة الثانية فما فوقاأن يكون المقاول مصنف أال يقل رأس المال المسجل عن 500,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          9,
+          14,
+          16,
+          19
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": "required_classification_grade",
+      "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة في الفئة الثانية أو أعلى.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": ":شروط االشتراك في مجال الطرق بالفئة الثانية فما فوقاأن يكون المقاول مصنف أال يقل رأس المال المسجل عن 500,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          4,
+          10,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": "min_registered_capital",
+      "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+      "expected": 500000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+        "status": "answered",
+        "answer": "الحد الأدنى لرأس المال المسجل هو 500,000 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "أن يكون المقاول مصنف أال يقل رأس المال المسجل عن 500,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          11,
+          14,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": "min_similar_projects",
+      "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+      "expected": 3,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة قد نفذت ثلاثة (3) مشاريع طرق مماثلة",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "أن يكون قد نفذ ثالثة مشاريع طرق مماثلة خالل السنوات السبع األخيرة"
+          }
+        ],
+        "pages_read": [
+          2,
+          5,
+          11,
+          14,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": "min_years_experience",
+      "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+      "expected": 5,
+      "outcome": "correct",
+      "answer": {
+        "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+        "status": "answered",
+        "answer": "منذ خمس سنوات على الأقل يجب أن تكون الشركة قد عملت في هذا النوع من الأعمال",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "خبرة في أعمال الطرق ال تقل عن خمس سنوات"
+          }
+        ],
+        "pages_read": [
+          2,
+          9,
+          11,
+          14,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": "submission_deadline",
+      "question": "متى ينتهي استلام الطلبات؟",
+      "expected": "2026-12-06",
+      "outcome": "correct",
+      "answer": {
+        "question": "متى ينتهي استلام الطلبات؟",
+        "status": "answered",
+        "answer": "ينتهي استلام الطلبات يوم الأحد الموافق 2026/12/06 الساعة الواحدة ظهرًا",
+        "citations": [
+          {
+            "page": 1,
+            "quote": "تقدم العروض في موعد أقصاه يوم األحد الموافق 2026/12/06 ا الساعة الواحدة ظهر"
+          }
+        ],
+        "pages_read": [
+          1,
+          4,
+          11,
+          14,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": "bid_guarantee_amount",
+      "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+      "expected": 35000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+        "status": "answered",
+        "answer": "مبلغ الضمان المالي هو 35,000 دينار أردني",
+        "citations": [
+          {
+            "page": 3,
+            "quote": "قيمة كفالة دخول العطاء 35,000 دينار أردني صادرة عن بنك أردني"
+          }
+        ],
+        "pages_read": [
+          3,
+          4,
+          16,
+          17,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          4,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          9,
+          13,
+          17,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": "work_category",
+      "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+      "expected": "water_and_sewerage",
+      "outcome": "correct",
+      "answer": {
+        "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة في مجال المياه والصرف الصحي للفئة الرابعة أو أعلى.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "في مجال المياه والصرف الصحي بالفئة الرابعة أو أعلىايشترط أن يكون المقاول مصنف رأس المال المسجل ال يقل عن 75,000 دينار خبرة ال تقل عن سنتين في أعمال المياه"
+          }
+        ],
+        "pages_read": [
+          2,
+          8,
+          13,
+          15,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": "required_classification_grade",
+      "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+      "expected": 4,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة في الفئة الرابعة أو أعلى.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "في مجال المياه والصرف الصحي بالفئة الرابعة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          7,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": "min_registered_capital",
+      "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+      "expected": 75000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+        "status": "answered",
+        "answer": "الحد الأدنى لرأس المال المسجل هو 75,000 دينار",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "رأس المال المسجل ال يقل عن 75,000 دينار"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          13,
+          15
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": "min_similar_projects",
+      "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+      "expected": 1,
+      "outcome": "wrong",
+      "answer": {
+        "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة قد أنجزت عملاً واحداً مماثلاً على الأقل",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "تنفيذ مشروع واحد مماثل على األقل خالل السنوات الخمس الماضية ال تقل قيمته عن 100,000 دينار كفالة دخول العطاء 5,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          4,
+          10,
+          13
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": "min_years_experience",
+      "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة قد عملت في هذا النوع من الأعمال لمدة لا تقل عن سنتين",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "في مجال المياه والصرف الصحي بالفئة الرابعة أو أعلىايشترط أن يكون المقاول مصنف رأس المال المسجل ال يقل عن 75,000 دينار خبرة ال تقل عن سنتين في أعمال المياه"
+          }
+        ],
+        "pages_read": [
+          2,
+          10,
+          13,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": "submission_deadline",
+      "question": "متى ينتهي استلام الطلبات؟",
+      "expected": "2026-11-30",
+      "outcome": "missed",
+      "answer": {
+        "question": "متى ينتهي استلام الطلبات؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          3,
+          6,
+          10,
+          13,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": "bid_guarantee_amount",
+      "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+      "expected": 5000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+        "status": "answered",
+        "answer": "5,000 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "كفالة دخول العطاء 5,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          15,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          4,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          3,
+          8,
+          12,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": "work_category",
+      "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+      "expected": "electromechanical",
+      "outcome": "correct",
+      "answer": {
+        "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة في مجال الأعمال الكهروميكانيكية (الفئة الأولى).",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يقتصر االشتراك على المقاولين المصنفين في مجال األعمال الكهروميكانيكية بالفئة األولى رأس المال المسجل ال يقل عن 2,000,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          9,
+          14,
+          16,
+          19
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": "required_classification_grade",
+      "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+      "expected": 1,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة في الفئة الأولى",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يقتصر االشتراك على المقاولين المصنفين في مجال األعمال الكهروميكانيكية بالفئة األولى رأس المال المسجل ال يقل عن 2,000,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          4,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": "min_registered_capital",
+      "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+      "expected": 2000000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+        "status": "answered",
+        "answer": "الحد الأدنى لرأس المال المسجل هو 2,000,000 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "رأس المال المسجل ال يقل عن 2,000,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          11,
+          14,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": "min_similar_projects",
+      "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة قد أنجزت مشروعين مماثلين",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "خبرة ال تقل عن عشر سنوات في األعمال الكهروميكانيكية تنفيذ مشروعين مماثلين خالل آخر خمس سنوات قيمة كل منهما ال تقل عن 1,500,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          5,
+          11,
+          14,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": "min_years_experience",
+      "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+      "expected": 10,
+      "outcome": "correct",
+      "answer": {
+        "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة قد عملت في هذا النوع من الأعمال لمدة لا تقل عن عشر سنوات",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "خبرة ال تقل عن عشر سنوات في األعمال الكهروميكانيكية تنفيذ مشروعين مماثلين خالل آخر خمس سنوات قيمة كل منهما ال تقل عن 1,500,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          11,
+          14,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": "submission_deadline",
+      "question": "متى ينتهي استلام الطلبات؟",
+      "expected": "2027-01-14",
+      "outcome": "missed",
+      "answer": {
+        "question": "متى ينتهي استلام الطلبات؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          4,
+          7,
+          11,
+          14,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": "bid_guarantee_amount",
+      "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+      "expected": 120000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+        "status": "answered",
+        "answer": "120,000 دينار أردني",
+        "citations": [
+          {
+            "page": 3,
+            "quote": ":كفالة دخول العطاء 120,000 دينار أردني سارية لمدة 120 ا يوم"
+          }
+        ],
+        "pages_read": [
+          3,
+          4,
+          16,
+          17,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          3,
+          4,
+          11,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          9,
+          13,
+          17,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": "work_category",
+      "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+      "expected": "buildings",
+      "outcome": "correct",
+      "answer": {
+        "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة معتمدة في أعمال البناء (مجال الأبنية).",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يحق االشتراك للمقاولين المصنفين في مجال األبنية بالفئة الخامسة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          8,
+          13,
+          15,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": "required_classification_grade",
+      "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+      "expected": 5,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة في الفئة الخامسة أو أعلى.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يحق االشتراك للمقاولين المصنفين في مجال األبنية بالفئة الخامسة أو أعلى أن تكون لدى المقاول خبرة ال تقل عن سنتين تقدم كفالة دخول عطاء بقيمة 2,500 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          13,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": "min_registered_capital",
+      "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          10,
+          13,
+          15
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": "min_similar_projects",
+      "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          4,
+          10,
+          13,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": "min_years_experience",
+      "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+      "expected": 2,
+      "outcome": "wrong",
+      "answer": {
+        "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+        "status": "answered",
+        "answer": "منذ تاريخ أمر المباشرة الصادر عن صاحب العمل",
+        "citations": [
+          {
+            "page": 10,
+            "quote": "مدة تنفيذ المشروع مئة وثمانون يوما تقويميا تبدأ من تاريخ أمر المباشرة الصادر عن صاحب العمل"
+          }
+        ],
+        "pages_read": [
+          8,
+          10,
+          13,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": "submission_deadline",
+      "question": "متى ينتهي استلام الطلبات؟",
+      "expected": "2026-12-10",
+      "outcome": "missed",
+      "answer": {
+        "question": "متى ينتهي استلام الطلبات؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          3,
+          6,
+          10,
+          13,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": "bid_guarantee_amount",
+      "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+      "expected": 2500,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+        "status": "answered",
+        "answer": "مبلغ الضمان المالي هو 2,500 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "تقدم كفالة دخول عطاء بقيمة 2,500 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          15,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          10,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          8,
+          12,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": "work_category",
+      "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+      "expected": "buildings",
+      "outcome": "correct",
+      "answer": {
+        "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة معتمدة في مجال الألبنية (أعمال البناء)",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يشترط تصنيف المقاول في مجال األبنية بالفئة الثالثة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          9,
+          16,
+          19
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": "required_classification_grade",
+      "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+      "expected": 3,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة على الأقل بالفئة الثالثة في مجال الأبنية.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يشترط تصنيف المقاول في مجال األبنية بالفئة الثالثة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": "min_registered_capital",
+      "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+      "expected": 150000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+        "status": "answered",
+        "answer": "الحد الأدنى لرأس المال المسجل هو 150,000 دينار أردني.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يجب أال يقل رأس المال المسجل للمقاول عن 150,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          4,
+          14,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": "min_similar_projects",
+      "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة قد أنجزت مشروعين مماثلين في السنوات الخمس الأخيرة",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "تنفيذ مشروعين مماثلين خالل السنوات الخمس الأخيرة"
+          }
+        ],
+        "pages_read": [
+          2,
+          5,
+          14,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": "min_years_experience",
+      "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+      "expected": 4,
+      "outcome": "correct",
+      "answer": {
+        "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+        "status": "answered",
+        "answer": "يجب أن تكون لدى الشركة خبرة لا تقل عن أربع سنوات في أعمال الأبنية",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "خبرة ال تقل عن أربع سنوات في أعمال األبنية"
+          }
+        ],
+        "pages_read": [
+          2,
+          11,
+          14,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": "submission_deadline",
+      "question": "متى ينتهي استلام الطلبات؟",
+      "expected": "2026-12-20",
+      "outcome": "missed",
+      "answer": {
+        "question": "متى ينتهي استلام الطلبات؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          4,
+          7,
+          11,
+          14,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": "bid_guarantee_amount",
+      "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+      "expected": 15000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+        "status": "answered",
+        "answer": "15,000 دينار أردني",
+        "citations": [
+          {
+            "page": 3,
+            "quote": "كفالة دخول العطاء 15,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          3,
+          4,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          9,
+          13,
+          17,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": "work_category",
+      "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+      "expected": "roads",
+      "outcome": "correct",
+      "answer": {
+        "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة معتمدة في مجال الأعمال المتعلق بالطرق",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "المجال المطلوب: الطرق"
+          }
+        ],
+        "pages_read": [
+          2,
+          8,
+          13,
+          15,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": "required_classification_grade",
+      "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+      "expected": 3,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة من الفئة الثالثة.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "الفئة المطلوبة: الثالثة"
+          }
+        ],
+        "pages_read": [
+          2,
+          7,
+          9,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": "min_registered_capital",
+      "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+      "expected": 250000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+        "status": "answered",
+        "answer": "250,000 دينار",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "الحد األدنى لرأس المال المسجل 250,000 دينار"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          13,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": "min_similar_projects",
+      "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+      "expected": 2,
+      "outcome": "wrong",
+      "answer": {
+        "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة قد أنجزت عملين سابقًا مشابهين",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "عدد المشاريع المماثلة المطلوبة 2"
+          }
+        ],
+        "pages_read": [
+          2,
+          4,
+          10,
+          13,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": "min_years_experience",
+      "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+      "expected": 6,
+      "outcome": "wrong",
+      "answer": {
+        "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+        "status": "answered",
+        "answer": "يجب أن تبدأ الشركة العمل من تاريخ أمر المباشرة الصادر عن صاحب العمل",
+        "citations": [
+          {
+            "page": 10,
+            "quote": "مدة تنفيذ المشروع مئة وثمانون يوما تقويميا تبدأ من تاريخ أمر المباشرة الصادر عن صاحب العمل"
+          }
+        ],
+        "pages_read": [
+          3,
+          8,
+          10,
+          13,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": "submission_deadline",
+      "question": "متى ينتهي استلام الطلبات؟",
+      "expected": "2026-12-15",
+      "outcome": "missed",
+      "answer": {
+        "question": "متى ينتهي استلام الطلبات؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          3,
+          6,
+          10,
+          13,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": "bid_guarantee_amount",
+      "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+      "expected": 12000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+        "status": "answered",
+        "answer": "مبلغ الضمان المالي هو 12,000 دينار",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "قيمة كفالة دخول العطاء 12,000 دينار"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          15,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          4,
+          10,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          3,
+          8,
+          12,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": "work_category",
+      "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+      "expected": "water_and_sewerage",
+      "outcome": "correct",
+      "answer": {
+        "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة في مجال المياه والصرف الصحي.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يشترط أن يكون المقاول مصنفا في مجال المياه والصرف الصحي بالفئة الثانية ( أال يقل رأس المال المسجل عن 300,000 ) ثالثمائة ألف دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          8,
+          13,
+          15,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": "required_classification_grade",
+      "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة في مجال المياه والصرف الصحي بالفئة الثانية.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يشترط أن يكون المقاول مصنفا في مجال المياه والصرف الصحي بالفئة الثانية ( أال يقل رأس المال المسجل عن 300,000 ) ثالثمائة ألف دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": "min_registered_capital",
+      "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+      "expected": 300000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+        "status": "answered",
+        "answer": "الحد الأدنى لرأس المال المسجل هو 300,000 دينار أردني.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "( أال يقل رأس المال المسجل عن 300,000 )"
+          }
+        ],
+        "pages_read": [
+          2,
+          13,
+          15
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": "min_similar_projects",
+      "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة قد نفذت مشروعين مماثلين",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "( أن يكون قد نفذ مشروعين مماثلين خالل السنوات العشر األخيرة ال تقل قيمة كل منهما عن 500,000 )"
+          }
+        ],
+        "pages_read": [
+          2,
+          4,
+          10,
+          13,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": "min_years_experience",
+      "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+      "expected": 8,
+      "outcome": "wrong",
+      "answer": {
+        "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة قد نفذت مشروعين مماثلين خلال السنوات العشر الأخيرة",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "( أن يكون قد نفذ مشروعين مماثلين خالل السنوات العشر األخيرة ال تقل قيمة كل منهما عن 500,000 )"
+          }
+        ],
+        "pages_read": [
+          2,
+          8,
+          10,
+          13,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": "submission_deadline",
+      "question": "متى ينتهي استلام الطلبات؟",
+      "expected": "2027-01-05",
+      "outcome": "correct",
+      "answer": {
+        "question": "متى ينتهي استلام الطلبات؟",
+        "status": "answered",
+        "answer": "ينتهي استلام الطلبات في 2027/01/05",
+        "citations": [
+          {
+            "page": 1,
+            "quote": "آخر موعد لتقديم العروض 2027/01/05"
+          }
+        ],
+        "pages_read": [
+          1,
+          3,
+          10,
+          13,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": "bid_guarantee_amount",
+      "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+      "expected": 25000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+        "status": "answered",
+        "answer": "مبلغ الضمان المالي هو 25,000 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "( كفالة دخول العطاء 25,000 ) خمسة وعشرون ألف دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          15,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          8,
+          12,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": "work_category",
+      "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+      "expected": "other_works",
+      "outcome": "correct",
+      "answer": {
+        "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة في مجال الأعمال الأخرى",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يحق االشتراك للمقاولين المصنفين في مجال األعمال األخرى بالفئة الرابعة أو أعلى رأس المال المسجل ال يقل عن 50,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          8,
+          13,
+          15,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": "required_classification_grade",
+      "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+      "expected": 4,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة في الفئة الرابعة أو أعلى لتتمكن من الاشتراك.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يحق االشتراك للمقاولين المصنفين في مجال األعمال األخرى بالفئة الرابعة أو أعلى رأس المال المسجل ال يقل عن 50,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": "min_registered_capital",
+      "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+      "expected": 50000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+        "status": "answered",
+        "answer": "الحد الأدنى لرأس المال المسجل هو 50,000 دينار أردني.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "رأس المال المسجل ال يقل عن 50,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          13,
+          15
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": "min_similar_projects",
+      "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          4,
+          10,
+          13,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": "min_years_experience",
+      "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+      "expected": 3,
+      "outcome": "missed",
+      "answer": {
+        "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          10,
+          13,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": "submission_deadline",
+      "question": "متى ينتهي استلام الطلبات؟",
+      "expected": "2026-12-01",
+      "outcome": "missed",
+      "answer": {
+        "question": "متى ينتهي استلام الطلبات؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          3,
+          6,
+          10,
+          13,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": "bid_guarantee_amount",
+      "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+      "expected": 3000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+        "status": "answered",
+        "answer": "مبلغ الضمان المالي هو 3000 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "كفالة دخول العطاء 3,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          15,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          10,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          8,
+          12,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": "work_category",
+      "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+      "expected": "buildings",
+      "outcome": "correct",
+      "answer": {
+        "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة في مجال الأبنية",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يشترط أن يكون المقاول مصنفا في مجال األبنية بالفئة الرابعة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          8,
+          13,
+          15,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": "required_classification_grade",
+      "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+      "expected": 4,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة في مجال الأبنية بالفئة الرابعة أو أعلى",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يشترط أن يكون المقاول مصنفا في مجال األبنية بالفئة الرابعة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          9,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": "min_registered_capital",
+      "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+      "expected": 120000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+        "status": "answered",
+        "answer": "120,000 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "ألا يقل رأس المال المسجل عن 120,000. دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          10,
+          13,
+          15
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": "min_similar_projects",
+      "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+      "expected": 1,
+      "outcome": "wrong",
+      "answer": {
+        "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة قد أنجزت عملاً مماثلاً واحداً",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "تنفيذ مشروع مماثل واحد خالل السنوات الخمس األخيرة ال تقل قيمته عن 180,000. دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          4,
+          10,
+          13,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": "min_years_experience",
+      "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+      "expected": 3,
+      "outcome": "correct",
+      "answer": {
+        "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة قد اكتسبت خبرة لا تقل عن ثلاث سنوات في هذا النوع من الأعمال، كما يجب أن تكون قد نفذت مشروعاً مماثلاً خلال الخمس سنوات الأخيرة.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يشترط أن يكون المقاول مصنفا في مجال األبنية بالفئة الرابعة أو أعلى أال يقل رأس المال المسجل عن 120,000. دينار أردني تنفيذ مشروع مماثل واحد خالل السنوات الخمس األخيرة ال تقل قيمته عن 180,000. دينار أردني خبرة ال تقل عن ثالث سنوات"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          10,
+          13,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": "submission_deadline",
+      "question": "متى ينتهي استلام الطلبات؟",
+      "expected": "2026-12-24",
+      "outcome": "correct",
+      "answer": {
+        "question": "متى ينتهي استلام الطلبات؟",
+        "status": "answered",
+        "answer": "ينتهي استلام الطلبات في 2026/12/24",
+        "citations": [
+          {
+            "page": 1,
+            "quote": "بلدية العقبة عطاء رقم AQB-2026-22 إنشاء مركز خدمات بلدية آخر موعد لتقديم العروض 2026/12/24"
+          }
+        ],
+        "pages_read": [
+          1,
+          6,
+          10,
+          13,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": "bid_guarantee_amount",
+      "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+      "expected": 7500,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+        "status": "answered",
+        "answer": "مبلغ الضمان المالي هو 7,500 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "كفالة دخول العطاء 7,500. دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          15,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          8,
+          12,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": "work_category",
+      "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+      "expected": "buildings",
+      "outcome": "missed",
+      "answer": {
+        "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          4,
+          11,
+          16,
+          18,
+          21
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": "required_classification_grade",
+      "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+      "expected": 4,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة في الفئة الرابعة أو أعلى",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "في مجال األبنية بالفئة الرابعة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          4,
+          6,
+          18,
+          19
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": "min_registered_capital",
+      "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+      "expected": 90000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الحد الأدنى لأموال الشركة المسجلة رسميا؟",
+        "status": "answered",
+        "answer": "90,000 دينار أردني",
+        "citations": [
+          {
+            "page": 3,
+            "quote": "رأس المال المسجل للمقاول عن 90,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          3,
+          4,
+          5,
+          6,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": "min_similar_projects",
+      "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة قد نفذت مشروعين مماثلين",
+        "citations": [
+          {
+            "page": 4,
+            "quote": "خبرة ال تقل عن خمس سنوات في أعمال األبنية تنفيذ مشروعين مماثلين خالل السنوات الست األخيرة ال تقل قيمة كل منهما عن 120,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          4,
+          7,
+          13,
+          16,
+          19
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": "min_years_experience",
+      "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+      "expected": 5,
+      "outcome": "correct",
+      "answer": {
+        "question": "منذ متى يجب أن تعمل الشركة في هذا النوع من الأعمال؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة لديها خبرة لا تقل عن خمس سنوات في أعمال الأبنية، وأن تكون قد نفذت مشروعين مماثلين خلال السنوات الست الأخيرة",
+        "citations": [
+          {
+            "page": 4,
+            "quote": "خبرة ال تقل عن خمس سنوات في أعمال األبنية تنفيذ مشروعين مماثلين خالل السنوات الست األخيرة ال تقل قيمة كل منهما عن 120,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          4,
+          13,
+          16,
+          19,
+          20
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": "submission_deadline",
+      "question": "متى ينتهي استلام الطلبات؟",
+      "expected": "2026-12-03",
+      "outcome": "correct",
+      "answer": {
+        "question": "متى ينتهي استلام الطلبات؟",
+        "status": "answered",
+        "answer": "ينتهي استلام الطلبات يوم الخميس الموافق 2026/12/03",
+        "citations": [
+          {
+            "page": 1,
+            "quote": "آخر موعد لتقديم العروض يوم الخميس الموافق 2026/12/03"
+          }
+        ],
+        "pages_read": [
+          1,
+          6,
+          13,
+          16,
+          20
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": "bid_guarantee_amount",
+      "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+      "expected": 6000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم مبلغ الضمان المالي الذي يرفق مع العرض؟",
+        "status": "answered",
+        "answer": "مبلغ الضمان المالي هو 6,000 دينار أردني",
+        "citations": [
+          {
+            "page": 5,
+            "quote": "كفالة دخول العطاء 6,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          5,
+          6,
+          18,
+          19,
+          20
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          3,
+          4,
+          5,
+          6,
+          19
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          11,
+          15,
+          19,
+          20
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c12_million",
+      "field": "work_category",
+      "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+      "expected": "buildings",
+      "outcome": "correct",
+      "answer": {
+        "question": "في أي نوع من الأعمال يجب أن تكون الشركة معتمدة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة في مجال الأبنية (الفئة الأولى) لتشارك في هذا العطاء.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يحق االشتراك للمقاولين المصنفين في مجال األبنية بالفئة األولى رأس المال المسجل ال يقل عن 3,000,000 ) دينار أردني (ثالثة ماليين دينار"
+          }
+        ],
+        "pages_read": [
+          2,
+          8,
+          13,
+          15,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c12_million",
+      "field": "required_classification_grade",
+      "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+      "expected": 1,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما الدرجة التي يجب أن تحملها الشركة؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة مصنفة بالفئة الأولى",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يحق االشتراك للمقاولين المصنفين في مجال األبنية بالفئة األولى رأس المال المسجل ال يقل عن 3,000,000 ) دينار أردني (ثالثة ماليين دينار"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          9,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c12_million",
+      "field": "min_registered_capital",
+      "error": "Model call failed: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    },
+    {
+      "case": "c12_million",
+      "field": "min_similar_projects",
+      "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم عملا سابقا مشابها يجب أن تكون الشركة قد أنجزته؟",
+        "status": "answered",
+        "answer": "يجب أن تكون الشركة قد أنجزت مشروعين مماثلين خلال السنوات العشر الأخيرة",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "تنفيذ مشروعين مماثلين خالل السنوات العشر األخيرة ال تقل قيمة كل منهما عن 10,000,000"
+          }
+        ],
+        "pages_read": [
+          2,
+          4,
+          13,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c12_million",
+      "field": "min_years_experience",
+      "error": "Model call failed: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    },
+    {
+      "case": "c12_million",
+      "field": "submission_deadline",
+      "question": "متى ينتهي استلام الطلبات؟",
+      "expected": "2027-02-01",
+      "outcome": "correct",
+      "answer": {
+        "question": "متى ينتهي استلام الطلبات؟",
+        "status": "answered",
+        "answer": "ينتهي استلام الطلبات في 2027/02/01",
+        "citations": [
+          {
+            "page": 1,
+            "quote": "آخر موعد لتقديم العروض 2027/02/01"
+          }
+        ],
+        "pages_read": [
+          1,
+          3,
+          10,
+          13,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c12_million",
+      "field": "bid_guarantee_amount",
+      "error": "Model call failed: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    },
+    {
+      "case": "c12_million",
+      "field": null,
+      "error": "Model call failed: Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    },
+    {
+      "case": "c12_million",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          8,
+          12,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    }
+  ]
+}

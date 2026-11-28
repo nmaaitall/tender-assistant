@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     app_name: str = "Jordan Tender Assistant"
-    version: str = "0.6.0"
+    version: str = "0.7.0"
     api_prefix: str = "/api/v1"
     max_upload_mb: int = 25
 

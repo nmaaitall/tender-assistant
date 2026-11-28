@@ -6,7 +6,8 @@ from fastapi import APIRouter, Depends, File, Form, HTTPException, Response, Upl
 from pydantic import BaseModel, Field, ValidationError
 from sqlalchemy.orm import Session
 
-from app.api.dependencies import get_qa
+from app.agent import AgentAnswer, TenderAgent, TenderContext
+from app.api.dependencies import get_agent, get_qa
 from app.api.uploads import read_upload_bytes
 from app.db import get_session
 from app.domain.company import CompanyProfile
@@ -126,12 +127,46 @@ def ask_question(
     session: Session = Depends(get_session),
     qa: TenderQA = Depends(get_qa),
 ) -> Answer:
+    _ready_job(session, job_id)
+    try:
+        return qa.ask(str(job_id), body.question)
+    except LLMError as exc:
+        raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(exc)) from exc
+
+
+@router.post(
+    "/{job_id}/agent",
+    response_model=AgentAnswer,
+    summary="Ask the agent a question that may need several steps",
+    description=(
+        "The agent decides which tools to call: questions about the tender text, the "
+        "extracted requirements, and the rule engine's qualification report. The "
+        "response lists every step, the checked citations, and the engine's report "
+        "when the verdict was used."
+    ),
+)
+def ask_agent(
+    job_id: uuid.UUID,
+    body: Question,
+    session: Session = Depends(get_session),
+    agent: TenderAgent = Depends(get_agent),
+) -> AgentAnswer:
+    job = _ready_job(session, job_id)
+    context = TenderContext(
+        document_id=str(job_id),
+        requirements=job.result["extraction"]["requirements"],
+        report=job.result.get("report"),
+    )
+    try:
+        return agent.run(context, body.question)
+    except LLMError as exc:
+        raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(exc)) from exc
+
+
+def _ready_job(session: Session, job_id: uuid.UUID) -> Job:
     job = session.get(Job, job_id)
     if job is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Job not found.")
     if job.status != JobStatus.SUCCEEDED or not (job.result or {}).get("questions_ready"):
         raise HTTPException(status.HTTP_409_CONFLICT, "This tender is not ready for questions.")
-    try:
-        return qa.ask(str(job_id), body.question)
-    except LLMError as exc:
-        raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(exc)) from exc
+    return job

@@ -20,9 +20,12 @@ SAMPLE = Path(__file__).parent / "fixtures" / "sample_tender.pdf"
 def database(tmp_path, monkeypatch):
     engine = db.configure(f"sqlite:///{tmp_path / 'jobs.db'}")
     db.Base.metadata.create_all(engine)
-    monkeypatch.setattr(celery_app.conf, "task_always_eager", True)
     monkeypatch.setattr(tasks, "get_ocr", lambda: None)
+    # Celery's lazy config object cannot be restored by monkeypatch, so set it directly.
+    eager = celery_app.conf.task_always_eager
+    celery_app.conf.task_always_eager = True
     yield
+    celery_app.conf.task_always_eager = eager
     engine.dispose()
 
 

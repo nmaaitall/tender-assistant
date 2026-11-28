@@ -1,0 +1,2623 @@
+{
+  "summary": {
+    "questions": 108,
+    "failed_calls": 0,
+    "outcomes": {
+      "correct": 80,
+      "refused": 27,
+      "missed": 1
+    },
+    "answer_accuracy": 0.9877,
+    "refusal_rate": 1.0,
+    "unsafe_answers": 0,
+    "unsupported": 0
+  },
+  "rows": [
+    {
+      "case": "c01_baseline",
+      "field": "work_category",
+      "question": "ما هو مجال التصنيف المطلوب؟",
+      "expected": "buildings",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو مجال التصنيف المطلوب؟",
+        "status": "answered",
+        "answer": "مجال التصنيف المطلوب هو مجال الأبنية",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يحق االشتراك في هذا العطاء للمقاولين األردنيين المصنفين لدى دائرة العطاءات الحكومية في مجال األبنية بالفئة الثالثة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c01_baseline",
+      "field": "required_classification_grade",
+      "question": "ما هي الفئة المطلوبة في التصنيف؟",
+      "expected": 3,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هي الفئة المطلوبة في التصنيف؟",
+        "status": "answered",
+        "answer": "الفئة المطلوبة هي الفئة الثالثة أو أعلى",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يحق االشتراك في هذا العطاء للمقاولين األردنيين المصنفين لدى دائرة العطاءات الحكومية في مجال األبنية بالفئة الثالثة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c01_baseline",
+      "field": "min_registered_capital",
+      "question": "كم يجب أن يكون رأس المال المسجل؟",
+      "expected": 100000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم يجب أن يكون رأس المال المسجل؟",
+        "status": "answered",
+        "answer": "100,000 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يجب أال يقل رأس المال المسجل للمقاول عن 100,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          4,
+          11,
+          14
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c01_baseline",
+      "field": "min_similar_projects",
+      "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+        "status": "answered",
+        "answer": "عدد المشاريع المماثلة المطلوبة هو 2",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يشترط أن يكون المقاول قد نفذ مشروعين مماثلين على األقل خالل السنوات الخمس األخيرة ال تقل قيمة كل منهما عن 250,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          7,
+          11,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c01_baseline",
+      "field": "min_years_experience",
+      "question": "كم سنة خبرة مطلوبة؟",
+      "expected": 3,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم سنة خبرة مطلوبة؟",
+        "status": "answered",
+        "answer": "3 سنوات",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يشترط أن تكون لدى المقاول خبرة ال تقل عن ثالث سنوات في تنفيذ أعمال األبنية"
+          }
+        ],
+        "pages_read": [
+          2,
+          11,
+          14
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c01_baseline",
+      "field": "submission_deadline",
+      "question": "ما هو آخر موعد لتقديم العروض؟",
+      "expected": "2026-10-15",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو آخر موعد لتقديم العروض؟",
+        "status": "answered",
+        "answer": "آخر موعد لتقديم العروض هو الساعة الثانية عشرة ظهرًا في 2026/10/15.",
+        "citations": [
+          {
+            "page": 1,
+            "quote": "الساعة الثانية عشرة ظهر 2026/10/15"
+          }
+        ],
+        "pages_read": [
+          1,
+          4,
+          11,
+          17,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c01_baseline",
+      "field": "bid_guarantee_amount",
+      "question": "ما قيمة كفالة دخول العطاء؟",
+      "expected": 20000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما قيمة كفالة دخول العطاء؟",
+        "status": "answered",
+        "answer": "20,000 دينار أردني",
+        "citations": [
+          {
+            "page": 3,
+            "quote": "يقدم المقاول مع عرضه كفالة دخول عطاء بقيمة 20,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c01_baseline",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          2,
+          4,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c01_baseline",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          9,
+          13,
+          17,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": "work_category",
+      "question": "ما هو مجال التصنيف المطلوب؟",
+      "expected": "roads",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو مجال التصنيف المطلوب؟",
+        "status": "answered",
+        "answer": "مجال التصنيف المطلوب هو مجال الطرق",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "شروط االشتراك في مجال الطرق بالفئة الثانية فما فوق"
+          }
+        ],
+        "pages_read": [
+          2,
+          15,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": "required_classification_grade",
+      "question": "ما هي الفئة المطلوبة في التصنيف؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هي الفئة المطلوبة في التصنيف؟",
+        "status": "answered",
+        "answer": "الفئة الثانية فما فوق",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "شروط االشتراك في مجال الطرق بالفئة الثانية فما فوق"
+          }
+        ],
+        "pages_read": [
+          2,
+          10,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": "min_registered_capital",
+      "question": "كم يجب أن يكون رأس المال المسجل؟",
+      "expected": 500000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم يجب أن يكون رأس المال المسجل؟",
+        "status": "answered",
+        "answer": "يجب أن يكون رأس المال المسجل 500,000 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "أن يكون المقاول مصنف أال يقل رأس المال المسجل عن 500,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          4,
+          11,
+          14
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": "min_similar_projects",
+      "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+      "expected": 3,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+        "status": "answered",
+        "answer": "3",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "أن يكون قد نفذ ثالثة مشاريع طرق مماثلة خالل السنوات السبع الأخيرة"
+          }
+        ],
+        "pages_read": [
+          2,
+          7,
+          11,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": "min_years_experience",
+      "question": "كم سنة خبرة مطلوبة؟",
+      "expected": 5,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم سنة خبرة مطلوبة؟",
+        "status": "answered",
+        "answer": "5 سنوات",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "على األقل خبرة في أعمال الطرق ال تقل عن خمس سنوات"
+          }
+        ],
+        "pages_read": [
+          2,
+          11,
+          14,
+          15
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": "submission_deadline",
+      "question": "ما هو آخر موعد لتقديم العروض؟",
+      "expected": "2026-12-06",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو آخر موعد لتقديم العروض؟",
+        "status": "answered",
+        "answer": "آخر موعد لتقديم العروض هو يوم الأحد الموافق 2026/12/06 الساعة الواحدة ظهر.",
+        "citations": [
+          {
+            "page": 1,
+            "quote": "تقدم العروض في موعد أقصاه يوم األحد الموافق 2026/12/06 ا الساعة الواحدة ظهر"
+          }
+        ],
+        "pages_read": [
+          1,
+          4,
+          11,
+          17,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": "bid_guarantee_amount",
+      "question": "ما قيمة كفالة دخول العطاء؟",
+      "expected": 35000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما قيمة كفالة دخول العطاء؟",
+        "status": "answered",
+        "answer": "قيمة كفالة دخول العطاء هي 35,000 دينار أردني.",
+        "citations": [
+          {
+            "page": 3,
+            "quote": "قيمة كفالة دخول العطاء 35,000 دينار أردني صادرة عن بنك أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          4,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c02_roads",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          9,
+          13,
+          17,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": "work_category",
+      "question": "ما هو مجال التصنيف المطلوب؟",
+      "expected": "water_and_sewerage",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو مجال التصنيف المطلوب؟",
+        "status": "answered",
+        "answer": "مجال التصنيف المطلوب هو مجال المياه والصرف الصحي",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "في مجال المياه والصرف الصحي بالفئة الرابعة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          14,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": "required_classification_grade",
+      "question": "ما هي الفئة المطلوبة في التصنيف؟",
+      "expected": 4,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هي الفئة المطلوبة في التصنيف؟",
+        "status": "answered",
+        "answer": "الفئة الرابعة أو أعلى",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "في مجال المياه والصرف الصحي بالفئة الرابعة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          14,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": "min_registered_capital",
+      "question": "كم يجب أن يكون رأس المال المسجل؟",
+      "expected": 75000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم يجب أن يكون رأس المال المسجل؟",
+        "status": "answered",
+        "answer": "يجب أن يكون رأس المال المسجل لا يقل عن 75,000 دينار",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "رأس المال المسجل ال يقل عن 75,000 دينار"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          10,
+          13
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": "min_similar_projects",
+      "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+      "expected": 1,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+        "status": "answered",
+        "answer": "عدد المشاريع المماثلة المطلوبة هو 1",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "تنفيذ مشروع واحد مماثل على األقل خالل السنوات الخمس الماضية"
+          }
+        ],
+        "pages_read": [
+          2,
+          6,
+          10,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": "min_years_experience",
+      "question": "كم سنة خبرة مطلوبة؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم سنة خبرة مطلوبة؟",
+        "status": "answered",
+        "answer": "الخبرة المطلوبة لا تقل عن سنتين",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "خبرة ال تقل عن سنتين في أعمال المياه"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          10,
+          13
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": "submission_deadline",
+      "question": "ما هو آخر موعد لتقديم العروض؟",
+      "expected": "2026-11-30",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو آخر موعد لتقديم العروض؟",
+        "status": "answered",
+        "answer": "آخر موعد لتقديم العروض هو 2026/11/30",
+        "citations": [
+          {
+            "page": 1,
+            "quote": "آخر موعد إليداع العروض 2026/11/30"
+          }
+        ],
+        "pages_read": [
+          1,
+          3,
+          10,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": "bid_guarantee_amount",
+      "question": "ما قيمة كفالة دخول العطاء؟",
+      "expected": 5000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما قيمة كفالة دخول العطاء؟",
+        "status": "answered",
+        "answer": "قيمة كفالة دخول العطاء هي 5,000 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "كفالة دخول العطاء 5,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          4,
+          10
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          4,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c03_water_small",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          3,
+          8,
+          12,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": "work_category",
+      "question": "ما هو مجال التصنيف المطلوب؟",
+      "expected": "electromechanical",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو مجال التصنيف المطلوب؟",
+        "status": "answered",
+        "answer": "مجال التصنيف المطلوب هو الأعمال الكهروميكانيكية.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يقتصر االشتراك على المقاولين المصنفين في مجال األعمال الكهروميكانيكية بالفئة األولى رأس المال المسجل ال يقل عن 2,000,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          15,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": "required_classification_grade",
+      "question": "ما هي الفئة المطلوبة في التصنيف؟",
+      "expected": 1,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هي الفئة المطلوبة في التصنيف؟",
+        "status": "answered",
+        "answer": "الفئة الأولى",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يقتصر االشتراك على المقاولين المصنفين في مجال األعمال الكهروميكانيكية بالفئة األولى رأس المال المسجل ال يقل عن 2,000,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          15,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": "min_registered_capital",
+      "question": "كم يجب أن يكون رأس المال المسجل؟",
+      "expected": 2000000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم يجب أن يكون رأس المال المسجل؟",
+        "status": "answered",
+        "answer": "يجب أن يكون رأس المال المسجل لا يقل عن 2,000,000 دينار أردني.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "رأس المال المسجل ال يقل عن 2,000,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          4,
+          11,
+          14
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": "min_similar_projects",
+      "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+        "status": "answered",
+        "answer": "2",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "خبرة ال تقل عن عشر سنوات في األعمال الكهروميكانيكية تنفيذ مشروعين مماثلين خالل آخر خمس سنوات قيمة كل منهما ال تقل عن 1,500,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          4,
+          7,
+          11,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": "min_years_experience",
+      "question": "كم سنة خبرة مطلوبة؟",
+      "expected": 10,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم سنة خبرة مطلوبة؟",
+        "status": "answered",
+        "answer": "10 سنوات",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "خبرة ال تقل عن عشر سنوات في األعمال الكهروميكانيكية تنفيذ مشروعين مماثلين خالل آخر خمس سنوات قيمة كل منهما ال تقل عن 1,500,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          4,
+          11,
+          14
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": "submission_deadline",
+      "question": "ما هو آخر موعد لتقديم العروض؟",
+      "expected": "2027-01-14",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو آخر موعد لتقديم العروض؟",
+        "status": "answered",
+        "answer": "2027/01/14",
+        "citations": [
+          {
+            "page": 1,
+            "quote": "آخر موعد لتقديم العروض 2027/01/14"
+          }
+        ],
+        "pages_read": [
+          1,
+          4,
+          11,
+          17,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": "bid_guarantee_amount",
+      "question": "ما قيمة كفالة دخول العطاء؟",
+      "expected": 120000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما قيمة كفالة دخول العطاء؟",
+        "status": "answered",
+        "answer": "120,000 دينار أردني",
+        "citations": [
+          {
+            "page": 3,
+            "quote": "كفالة دخول العطاء 120,000 دينار أردني سارية لمدة 120 ا يوم"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          3,
+          4,
+          11,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c04_electromech_large",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          9,
+          13,
+          17,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": "work_category",
+      "question": "ما هو مجال التصنيف المطلوب؟",
+      "expected": "buildings",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو مجال التصنيف المطلوب؟",
+        "status": "answered",
+        "answer": "مجال التصنيف المطلوب هو مجال الأبنية",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "المقاولين المصنفين في مجال األبنية"
+          }
+        ],
+        "pages_read": [
+          2,
+          10,
+          14,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": "required_classification_grade",
+      "question": "ما هي الفئة المطلوبة في التصنيف؟",
+      "expected": 5,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هي الفئة المطلوبة في التصنيف؟",
+        "status": "answered",
+        "answer": "الفئة المطلوبة هي الفئة الخامسة أو أعلى",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يحق االشتراك للمقاولين المصنفين في مجال األبنية بالفئة الخامسة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          9,
+          14,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": "min_registered_capital",
+      "question": "كم يجب أن يكون رأس المال المسجل؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "كم يجب أن يكون رأس المال المسجل؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          6,
+          10,
+          13
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": "min_similar_projects",
+      "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          6,
+          10,
+          13,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": "min_years_experience",
+      "question": "كم سنة خبرة مطلوبة؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم سنة خبرة مطلوبة؟",
+        "status": "answered",
+        "answer": "2 سنة",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "خبرة ال تقل عن سنتين"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          10,
+          13,
+          14
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": "submission_deadline",
+      "question": "ما هو آخر موعد لتقديم العروض؟",
+      "expected": "2026-12-10",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو آخر موعد لتقديم العروض؟",
+        "status": "answered",
+        "answer": "2026/12/10",
+        "citations": [
+          {
+            "page": 1,
+            "quote": "آخر موعد لتقديم العروض 2026/12/10"
+          }
+        ],
+        "pages_read": [
+          1,
+          3,
+          10,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": "bid_guarantee_amount",
+      "question": "ما قيمة كفالة دخول العطاء؟",
+      "expected": 2500,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما قيمة كفالة دخول العطاء؟",
+        "status": "answered",
+        "answer": "قيمة كفالة دخول العطاء هي 2,500 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "تقدم كفالة دخول عطاء بقيمة 2,500 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          4,
+          6,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          10,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c05_missing_fields",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          8,
+          12,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": "work_category",
+      "question": "ما هو مجال التصنيف المطلوب؟",
+      "expected": "buildings",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو مجال التصنيف المطلوب؟",
+        "status": "answered",
+        "answer": "مجال الألبنية",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يشترط تصنيف المقاول في مجال األبنية بالفئة الثالثة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          15,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": "required_classification_grade",
+      "question": "ما هي الفئة المطلوبة في التصنيف؟",
+      "expected": 3,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هي الفئة المطلوبة في التصنيف؟",
+        "status": "answered",
+        "answer": "الفئة الثالثة أو أعلى",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يشترط تصنيف المقاول في مجال األبنية بالفئة الثالثة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          15,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": "min_registered_capital",
+      "question": "كم يجب أن يكون رأس المال المسجل؟",
+      "expected": 150000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم يجب أن يكون رأس المال المسجل؟",
+        "status": "answered",
+        "answer": "يجب أن يكون رأس المال المسجل للمقاول لا يقل عن 150,000 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يجب أال يقل رأس المال المسجل للمقاول عن 150,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          4,
+          11,
+          14
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": "min_similar_projects",
+      "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+        "status": "answered",
+        "answer": "عدد المشاريع المماثلة المطلوبة هو مشروعين",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "تنفيذ مشروعين مماثلين خالل السنوات الخمس األخيرة ال تقل قيمة كل منهما عن 300,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          4,
+          7,
+          11,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": "min_years_experience",
+      "question": "كم سنة خبرة مطلوبة؟",
+      "expected": 4,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم سنة خبرة مطلوبة؟",
+        "status": "answered",
+        "answer": "4 سنوات",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "خبرة ال تقل عن أربع سنوات في أعمال األبنية"
+          }
+        ],
+        "pages_read": [
+          2,
+          11,
+          14,
+          15
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": "submission_deadline",
+      "question": "ما هو آخر موعد لتقديم العروض؟",
+      "expected": "2026-12-20",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو آخر موعد لتقديم العروض؟",
+        "status": "answered",
+        "answer": "آخر موعد لتقديم العروض هو 2026/12/20",
+        "citations": [
+          {
+            "page": 1,
+            "quote": "آخر موعد لتقديم العروض 2026/12/20"
+          }
+        ],
+        "pages_read": [
+          1,
+          4,
+          5,
+          11,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": "bid_guarantee_amount",
+      "question": "ما قيمة كفالة دخول العطاء؟",
+      "expected": 15000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما قيمة كفالة دخول العطاء؟",
+        "status": "answered",
+        "answer": "15,000 دينار أردني",
+        "citations": [
+          {
+            "page": 3,
+            "quote": "كفالة دخول العطاء 15,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c06_distractors",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          9,
+          13,
+          17,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": "work_category",
+      "question": "ما هو مجال التصنيف المطلوب؟",
+      "expected": "roads",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو مجال التصنيف المطلوب؟",
+        "status": "answered",
+        "answer": "الطرق",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "المجال المطلوب: الطرق"
+          }
+        ],
+        "pages_read": [
+          2,
+          10,
+          14,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": "required_classification_grade",
+      "question": "ما هي الفئة المطلوبة في التصنيف؟",
+      "expected": 3,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هي الفئة المطلوبة في التصنيف؟",
+        "status": "answered",
+        "answer": "الفئة المطلوبة هي الثالثة",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "الفئة المطلوبة: الثالثة"
+          }
+        ],
+        "pages_read": [
+          2,
+          9,
+          14,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": "min_registered_capital",
+      "question": "كم يجب أن يكون رأس المال المسجل؟",
+      "expected": 250000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم يجب أن يكون رأس المال المسجل؟",
+        "status": "answered",
+        "answer": "250,000 دينار",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "الحد األدنى لرأس المال المسجل 250,000 دينار"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          6,
+          10,
+          13
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": "min_similar_projects",
+      "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+        "status": "answered",
+        "answer": "عدد المشاريع المماثلة المطلوبة هو 2",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "عدد المشاريع المماثلة المطلوبة 2"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          6,
+          10,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": "min_years_experience",
+      "question": "كم سنة خبرة مطلوبة؟",
+      "expected": 6,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم سنة خبرة مطلوبة؟",
+        "status": "answered",
+        "answer": "6 سنوات",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "الحد األدنى لسنوات الخبرة 6"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          10,
+          13,
+          14
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": "submission_deadline",
+      "question": "ما هو آخر موعد لتقديم العروض؟",
+      "expected": "2026-12-15",
+      "outcome": "missed",
+      "answer": {
+        "question": "ما هو آخر موعد لتقديم العروض؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          10,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": "bid_guarantee_amount",
+      "question": "ما قيمة كفالة دخول العطاء؟",
+      "expected": 12000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما قيمة كفالة دخول العطاء؟",
+        "status": "answered",
+        "answer": "12,000 دينار",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "قيمة كفالة دخول العطاء 12,000 دينار"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          4,
+          6,
+          10
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          4,
+          10,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c07_list_format",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          3,
+          8,
+          12,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": "work_category",
+      "question": "ما هو مجال التصنيف المطلوب؟",
+      "expected": "water_and_sewerage",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو مجال التصنيف المطلوب؟",
+        "status": "answered",
+        "answer": "مجال التصنيف المطلوب هو المياه والصرف الصحي",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يشترط أن يكون المقاول مصنفا في مجال المياه والصرف الصحي بالفئة الثانية"
+          }
+        ],
+        "pages_read": [
+          2,
+          14,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": "required_classification_grade",
+      "question": "ما هي الفئة المطلوبة في التصنيف؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هي الفئة المطلوبة في التصنيف؟",
+        "status": "answered",
+        "answer": "الفئة الثانية",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "الفئة الثانية"
+          }
+        ],
+        "pages_read": [
+          2,
+          14,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": "min_registered_capital",
+      "question": "كم يجب أن يكون رأس المال المسجل؟",
+      "expected": 300000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم يجب أن يكون رأس المال المسجل؟",
+        "status": "answered",
+        "answer": "300,000 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "( أال يقل رأس المال المسجل عن 300,000 )"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          13
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": "min_similar_projects",
+      "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+        "status": "answered",
+        "answer": "عدد المشاريع المماثلة المطلوبة هو مشروعين",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "( أن يكون قد نفذ مشروعين مماثلين خالل السنوات العشر األخيرة ال تقل قيمة كل منهما عن 500,000 )"
+          }
+        ],
+        "pages_read": [
+          2,
+          6,
+          10,
+          13,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": "min_years_experience",
+      "question": "كم سنة خبرة مطلوبة؟",
+      "expected": 8,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم سنة خبرة مطلوبة؟",
+        "status": "answered",
+        "answer": "8 سنوات",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "خبرة ال تقل عن ثماني سنوات"
+          }
+        ],
+        "pages_read": [
+          2,
+          10,
+          13,
+          14
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": "submission_deadline",
+      "question": "ما هو آخر موعد لتقديم العروض؟",
+      "expected": "2027-01-05",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو آخر موعد لتقديم العروض؟",
+        "status": "answered",
+        "answer": "2027/01/05",
+        "citations": [
+          {
+            "page": 1,
+            "quote": "آخر موعد لتقديم العروض 2027/01/05"
+          }
+        ],
+        "pages_read": [
+          1,
+          3,
+          10,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": "bid_guarantee_amount",
+      "question": "ما قيمة كفالة دخول العطاء؟",
+      "expected": 25000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما قيمة كفالة دخول العطاء؟",
+        "status": "answered",
+        "answer": "قيمة كفالة دخول العطاء هي 25,000 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "( كفالة دخول العطاء 25,000 ) خمسة وعشرون ألف دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          4
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c08_amounts_in_words",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          8,
+          12,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": "work_category",
+      "question": "ما هو مجال التصنيف المطلوب؟",
+      "expected": "other_works",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو مجال التصنيف المطلوب؟",
+        "status": "answered",
+        "answer": "مجال الأعمال الأخرى",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يحق االشتراك للمقاولين المصنفين في مجال األعمال األخرى بالفئة الرابعة أو أعلى رأس المال المسجل ال يقل عن 50,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          14,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": "required_classification_grade",
+      "question": "ما هي الفئة المطلوبة في التصنيف؟",
+      "expected": 4,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هي الفئة المطلوبة في التصنيف؟",
+        "status": "answered",
+        "answer": "الفئة الرابعة أو أعلى",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يحق االشتراك للمقاولين المصنفين في مجال األعمال األخرى بالفئة الرابعة أو أعلى رأس المال المسجل ال يقل عن 50,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          14,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": "min_registered_capital",
+      "question": "كم يجب أن يكون رأس المال المسجل؟",
+      "expected": 50000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم يجب أن يكون رأس المال المسجل؟",
+        "status": "answered",
+        "answer": "يجب أن يكون رأس المال المسجل لا يقل عن 50,000 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "رأس المال المسجل ال يقل عن 50,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          10,
+          13
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": "min_similar_projects",
+      "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          6,
+          10,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": "min_years_experience",
+      "question": "كم سنة خبرة مطلوبة؟",
+      "expected": 3,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم سنة خبرة مطلوبة؟",
+        "status": "answered",
+        "answer": "3 سنوات",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "خبرة ال تقل عن ثالث سنوات كفالة دخول العطاء 3,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          10,
+          13,
+          14
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": "submission_deadline",
+      "question": "ما هو آخر موعد لتقديم العروض؟",
+      "expected": "2026-12-01",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو آخر موعد لتقديم العروض؟",
+        "status": "answered",
+        "answer": "2026/12/01",
+        "citations": [
+          {
+            "page": 1,
+            "quote": "آخر موعد لتقديم العروض 2026/12/01"
+          }
+        ],
+        "pages_read": [
+          1,
+          3,
+          10,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": "bid_guarantee_amount",
+      "question": "ما قيمة كفالة دخول العطاء؟",
+      "expected": 3000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما قيمة كفالة دخول العطاء؟",
+        "status": "answered",
+        "answer": "قيمة كفالة دخول العطاء هي 3,000 دينار أردني.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "كفالة دخول العطاء 3,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          4,
+          6
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          10,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c09_other_works",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          8,
+          12,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": "work_category",
+      "question": "ما هو مجال التصنيف المطلوب؟",
+      "expected": "buildings",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو مجال التصنيف المطلوب؟",
+        "status": "answered",
+        "answer": "مجال التصنيف المطلوب هو مجال الأبنية.",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يشترط أن يكون المقاول مصنفا في مجال األبنية بالفئة الرابعة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          10,
+          14,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": "required_classification_grade",
+      "question": "ما هي الفئة المطلوبة في التصنيف؟",
+      "expected": 4,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هي الفئة المطلوبة في التصنيف؟",
+        "status": "answered",
+        "answer": "الفئة المطلوبة هي الفئة الرابعة أو أعلى",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "الفئة الرابعة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          9,
+          14,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": "min_registered_capital",
+      "question": "كم يجب أن يكون رأس المال المسجل؟",
+      "expected": 120000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم يجب أن يكون رأس المال المسجل؟",
+        "status": "answered",
+        "answer": "120,000 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "أال يقل رأس المال المسجل عن 120,000. دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          10,
+          13
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": "min_similar_projects",
+      "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+      "expected": 1,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+        "status": "answered",
+        "answer": "عدد المشاريع المماثلة المطلوبة هو واحد",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "تنفيذ مشروع مماثل واحد خالل السنوات الخمس األخيرة"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          10,
+          13,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": "min_years_experience",
+      "question": "كم سنة خبرة مطلوبة؟",
+      "expected": 3,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم سنة خبرة مطلوبة؟",
+        "status": "answered",
+        "answer": "ثلاث سنوات",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "خبرة ال تقل عن ثالث سنوات"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          10,
+          13,
+          14
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": "submission_deadline",
+      "question": "ما هو آخر موعد لتقديم العروض؟",
+      "expected": "2026-12-24",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو آخر موعد لتقديم العروض؟",
+        "status": "answered",
+        "answer": "2026/12/24",
+        "citations": [
+          {
+            "page": 1,
+            "quote": "آخر موعد لتقديم العروض 2026/12/24"
+          }
+        ],
+        "pages_read": [
+          1,
+          3,
+          10,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": "bid_guarantee_amount",
+      "question": "ما قيمة كفالة دخول العطاء؟",
+      "expected": 7500,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما قيمة كفالة دخول العطاء؟",
+        "status": "answered",
+        "answer": "7,500 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "كفالة دخول العطاء 7,500. دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          4,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c10_arabic_digits",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          8,
+          12,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": "work_category",
+      "question": "ما هو مجال التصنيف المطلوب؟",
+      "expected": "buildings",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو مجال التصنيف المطلوب؟",
+        "status": "answered",
+        "answer": "مجال الألبنية بالفئة الرابعة أو أعلى",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "في مجال األبنية بالفئة الرابعة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          4,
+          18,
+          19
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": "required_classification_grade",
+      "question": "ما هي الفئة المطلوبة في التصنيف؟",
+      "expected": 4,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هي الفئة المطلوبة في التصنيف؟",
+        "status": "answered",
+        "answer": "الفئة الرابعة أو أعلى",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "في مجال األبنية بالفئة الرابعة أو أعلى"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          4,
+          17,
+          18
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": "min_registered_capital",
+      "question": "كم يجب أن يكون رأس المال المسجل؟",
+      "expected": 90000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم يجب أن يكون رأس المال المسجل؟",
+        "status": "answered",
+        "answer": "يجب ألا يقل رأس المال المسجل للمقاول عن 90,000 دينار أردني",
+        "citations": [
+          {
+            "page": 3,
+            "quote": "أال يقل رأس المال المسجل للمقاول عن 90,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          3,
+          4,
+          5,
+          6,
+          13
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": "min_similar_projects",
+      "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+        "status": "answered",
+        "answer": "عدد المشاريع المماثلة المطلوبة هو 2",
+        "citations": [
+          {
+            "page": 4,
+            "quote": "خبرة ال تقل عن خمس سنوات في أعمال األبنية تنفيذ مشروعين مماثلين خالل السنوات الست األخيرة ال تقل قيمة كل منهما عن 120,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          4,
+          6,
+          9,
+          13,
+          19
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": "min_years_experience",
+      "question": "كم سنة خبرة مطلوبة؟",
+      "expected": 5,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم سنة خبرة مطلوبة؟",
+        "status": "answered",
+        "answer": "5 سنوات",
+        "citations": [
+          {
+            "page": 4,
+            "quote": "خبرة ال تقل عن خمس سنوات في أعمال األبنية تنفيذ مشروعين مماثلين خالل السنوات الست الأخيرة"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          4,
+          13,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": "submission_deadline",
+      "question": "ما هو آخر موعد لتقديم العروض؟",
+      "expected": "2026-12-03",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو آخر موعد لتقديم العروض؟",
+        "status": "answered",
+        "answer": "آخر موعد لتقديم العروض هو يوم الخميس الموافق 2026/12/03",
+        "citations": [
+          {
+            "page": 1,
+            "quote": "آخر موعد لتقديم العروض يوم الخميس الموافق 2026/12/03"
+          }
+        ],
+        "pages_read": [
+          1,
+          6,
+          13,
+          19,
+          20
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": "bid_guarantee_amount",
+      "question": "ما قيمة كفالة دخول العطاء؟",
+      "expected": 6000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما قيمة كفالة دخول العطاء؟",
+        "status": "answered",
+        "answer": "قيمة كفالة دخول العطاء هي 6,000 دينار أردني",
+        "citations": [
+          {
+            "page": 5,
+            "quote": "كفالة دخول العطاء 6,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          3,
+          4,
+          5,
+          6,
+          19
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c11_spread_over_pages",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          11,
+          15,
+          19,
+          20
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c12_million",
+      "field": "work_category",
+      "question": "ما هو مجال التصنيف المطلوب؟",
+      "expected": "buildings",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو مجال التصنيف المطلوب؟",
+        "status": "answered",
+        "answer": "مجال التصنيف المطلوب هو مجال الأبنية",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "المقاولين المصنفين في مجال األبنية بالفئة األولى"
+          }
+        ],
+        "pages_read": [
+          2,
+          14,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c12_million",
+      "field": "required_classification_grade",
+      "question": "ما هي الفئة المطلوبة في التصنيف؟",
+      "expected": 1,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هي الفئة المطلوبة في التصنيف؟",
+        "status": "answered",
+        "answer": "الفئة المطلوبة هي الفئة الأولى",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "يحق االشتراك للمقاولين المصنفين في مجال األبنية بالفئة األولى"
+          }
+        ],
+        "pages_read": [
+          2,
+          14,
+          15,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c12_million",
+      "field": "min_registered_capital",
+      "question": "كم يجب أن يكون رأس المال المسجل؟",
+      "expected": 3000000,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم يجب أن يكون رأس المال المسجل؟",
+        "status": "answered",
+        "answer": "يجب أن يكون رأس المال المسجل لا يقل عن 3,000,000 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "رأس المال المسجل ال يقل عن 3,000,000 ) دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          10,
+          13
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c12_million",
+      "field": "min_similar_projects",
+      "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+      "expected": 2,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم عدد المشاريع المماثلة المطلوبة؟",
+        "status": "answered",
+        "answer": "2",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "تنفيذ مشروعين مماثلين خالل السنوات العشر الأخيرة ال تقل قيمة كل منهما عن 10,000,000"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          10,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c12_million",
+      "field": "min_years_experience",
+      "question": "كم سنة خبرة مطلوبة؟",
+      "expected": 15,
+      "outcome": "correct",
+      "answer": {
+        "question": "كم سنة خبرة مطلوبة؟",
+        "status": "answered",
+        "answer": "الخبرة المطلوبة لا تقل عن 15 سنة",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "خبرة ال تقل عن خمس عشرة سنة"
+          }
+        ],
+        "pages_read": [
+          2,
+          10,
+          13,
+          14
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c12_million",
+      "field": "submission_deadline",
+      "question": "ما هو آخر موعد لتقديم العروض؟",
+      "expected": "2027-02-01",
+      "outcome": "correct",
+      "answer": {
+        "question": "ما هو آخر موعد لتقديم العروض؟",
+        "status": "answered",
+        "answer": "آخر موعد لتقديم العروض هو 2027/02/01",
+        "citations": [
+          {
+            "page": 1,
+            "quote": "آخر موعد لتقديم العروض 2027/02/01"
+          }
+        ],
+        "pages_read": [
+          1,
+          3,
+          10,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c12_million",
+      "field": "bid_guarantee_amount",
+      "question": "ما قيمة كفالة دخول العطاء؟",
+      "expected": 250000,
+      "outcome": "correct",
+      "answer": {
+        "question": "ما قيمة كفالة دخول العطاء؟",
+        "status": "answered",
+        "answer": "250,000 دينار أردني",
+        "citations": [
+          {
+            "page": 2,
+            "quote": "كفالة دخول العطاء 250,000 دينار أردني"
+          }
+        ],
+        "pages_read": [
+          2,
+          3,
+          4
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c12_million",
+      "field": null,
+      "question": "ما هو ثمن نسخة كراسة الشروط؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "ما هو ثمن نسخة كراسة الشروط؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          2,
+          3,
+          16
+        ],
+        "reason": null
+      }
+    },
+    {
+      "case": "c12_million",
+      "field": null,
+      "question": "هل يسمح بتقديم عروض بديلة؟",
+      "expected": null,
+      "outcome": "refused",
+      "answer": {
+        "question": "هل يسمح بتقديم عروض بديلة؟",
+        "status": "not_found",
+        "answer": null,
+        "citations": [],
+        "pages_read": [
+          1,
+          8,
+          12,
+          16,
+          17
+        ],
+        "reason": null
+      }
+    }
+  ]
+}

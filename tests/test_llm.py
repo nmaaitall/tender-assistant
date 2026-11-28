@@ -100,3 +100,10 @@ def test_does_not_retry_client_errors(monkeypatch):
     with pytest.raises(LLMError):
         GroqClient("key", "m").complete_json("s", "u")
     assert len(calls) == 1
+
+
+def test_error_keeps_the_provider_message(monkeypatch):
+    body = {"error": {"message": "Rate limit reached for tokens per day (TPD)"}}
+    monkeypatch.setattr(httpx, "post", lambda *a, **k: _response(400, body))
+    with pytest.raises(LLMError, match="tokens per day"):
+        GroqClient("key", "m").complete_json("s", "u")

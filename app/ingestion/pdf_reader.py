@@ -7,6 +7,7 @@ engine is given, and stay flagged as needing OCR when it is not.
 from __future__ import annotations
 
 import io
+from collections.abc import Callable
 
 import pymupdf
 from PIL import Image, ImageFilter
@@ -34,8 +35,12 @@ class PdfReadError(ValueError):
 
 
 def read_pdf(
-    data: bytes, filename: str = "document.pdf", ocr: OcrEngine | None = None
+    data: bytes,
+    filename: str = "document.pdf",
+    ocr: OcrEngine | None = None,
+    on_page: Callable[[int, int], None] | None = None,
 ) -> ExtractedDocument:
+    """Reads every page. on_page(done, total) is called after each page, for progress."""
     try:
         document = pymupdf.open(stream=data, filetype="pdf")
     except (pymupdf.FileDataError, RuntimeError) as exc:
@@ -46,7 +51,12 @@ def read_pdf(
         raise PdfReadError(f"{filename} is password protected")
 
     with document:
-        pages = [_read_page(page, ocr) for page in document]
+        total = document.page_count
+        pages = []
+        for page in document:
+            pages.append(_read_page(page, ocr))
+            if on_page is not None:
+                on_page(len(pages), total)
         return ExtractedDocument(filename=filename, page_count=len(pages), pages=pages)
 
 
